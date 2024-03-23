@@ -1,0 +1,66 @@
+export const data = [
+  {
+    id: 1,
+    headerTextOne: "skelaton #01",
+    headerTextTwo: "skelaton #01",
+    image: "./appDataImages/explore/1.png",
+    name: "kanga1",
+  },
+  {
+    id: 2,
+    headerTextOne: "skelaton #01",
+    headerTextTwo: "skelaton #01",
+    image: "./appDataImages/explore/2.png",
+    name: "kanga2",
+  },
+  {
+    id: 3,
+    headerTextOne: "skelaton #01",
+    headerTextTwo: "skelaton #01",
+    image: "./appDataImages/explore/3.png",
+    name: "kanga3",
+  },
+  {
+    id: 4,
+    headerTextOne: "skelaton #01",
+    headerTextTwo: "skelaton #01",
+    image: "./appDataImages/explore/4.png",
+    name: "kanga4",
+  },
+  {
+    id: 5,
+    headerTextOne: "skelaton #01",
+    headerTextTwo: "skelaton #01",
+    image: "./appDataImages/explore/5.png",
+    name: "kanga5",
+  },
+  {
+    id: 6,
+    headerTextOne: "skelaton #01",
+    headerTextTwo: "skelaton #01",
+    image: "./appDataImages/explore/6.png",
+    name: "kanga6",
+  },
+  {
+    id: 7,
+    headerTextOne: "skelaton #01",
+    headerTextTwo: "skelaton #01",
+    image: "./appDataImages/explore/7.png",
+    name: "kanga7",
+  },
+  {
+    id: 8,
+    headerTextOne: "skelaton #01",
+    headerTextTwo: "skelaton #01",
+    image: "./appDataImages/explore/8.png",
+    name: "kanga8",
+  },
+  {
+    id: 9,
+    headerTextOne: "skelaton #01",
+    headerTextTwo: "skelaton #01",
+    image: "./appDataImages/explore/4.png",
+    name: "kanga9",
+  },
+]
+

@@ -1,0 +1,31 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+:root {
+  --pitch-black: #202020;
+  --dark: #000205;
+  --dark-blue: #0D1321;
+  --grey: #1f1f1f;
+  --light-white: #DDFFF7;
+  --purple: #0023DE;
+  --green: #00FF00;
+  --mid: #FF00DD; 
+  --shadow: rgba(50, 50,93, 0.25) 0px 2px 5px -1px, rgba(0,0,0,,0.3) 0px 1px 3px -1px;
+
+}
+
+html {
+  font-family: 'Open Sans', sans-serif;
+  font-size: 62.5%;
+  line-height: 1.4;
+  font-weight: 400;
+  scroll-behavior: smooth;
+}
+
+body {
+  min-height: 100vh;
+  overflow-x: hidden;
+}
