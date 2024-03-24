@@ -33,7 +33,7 @@ const NavBarExplore = () => {
 						<Link to='/admin'>Admin</Link>
 					</li>
 					<li>
-						<Link to="/raffles">Raffles</Link>
+						<Link to="/raffle">Raffles</Link>
 					</li>
 					<li>
 						<Link to="/nfts">Projects</Link>
