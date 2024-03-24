@@ -6,7 +6,7 @@ const NftCardItem = ({ dataItem }) => {
   const { id, image, name, description, } = dataItem;
   return (
     <NftCardItemStyles>
-      <img src="http://gaia-images.onrender.com/image-1711224759274.png" alt={name} />
+      <img src={image} alt={name} />
       <h2>{name}</h2>
       <h2>{description}</h2>
       {/* Use Link instead of a regular anchor tag */}
