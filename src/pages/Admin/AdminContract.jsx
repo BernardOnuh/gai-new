@@ -185,27 +185,21 @@ const AdminContract = () => {
 								</div>
 							</div>
 						</div>
-						<div className='row-1'></div>
-						<div className='row-1-input-1'>
-						<div className='row-1-title'>
-								<h4>Upload NFT PFP</h4>
+						<div className='row-1'>
+							<div className='row-1-title'>
+								<h4>NFT PFP URL</h4>
 							</div>
-						</div>
-						
-						<div className="centered-container">
-						<div className="centered-content">
-							<input type="file" id="imageInput" style={{ display: 'none' }} onChange={handleFileChange} />
-							<label htmlFor="imageInput">Choose Image</label>
-							{imageChosen && <p>Click Upload to Upload the Image</p>} 
-							<button onClick={handleUpload}>Upload</button>
-							{responseMessage && <p className="success-message">Image Uploaded Successfully: {responseMessage}</p>}
-						</div>
-						</div>
-						
-						
-
-					
-
+							<div className='row-1-input'>
+								<div className='row-1-input-1'>
+					 				<label htmlFor='image'>NFT PFP URL</label>
+									<input type='text' 
+										id='collection' 
+										placeholder='NFT PFP URL' 
+										value={responseMessage} 
+										onChange={(e) => setResponseMessage(e.target.value)}  />
+								</div>
+								</div>
+							</div>
 						<div className='row-5'>
 							<div className='row-5-title'>
 								<h4>set social url</h4>

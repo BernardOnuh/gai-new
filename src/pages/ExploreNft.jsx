@@ -32,7 +32,7 @@ const ExploreNft = () => {
 						<p>live</p>
 					</button>
 					<div className='input-actions'>
-						<image src=""/>
+						<image src="https://gaia-images.onrender.com/image-1711224759274.png"/>
 						<div className='search'>
 							<input type='search' placeholder='search nft' />
 							<i className='fa fa-search'></i>
