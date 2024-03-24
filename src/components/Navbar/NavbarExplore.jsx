@@ -30,20 +30,14 @@ const NavBarExplore = () => {
 						<Link to='/'>Home</Link>
 					</li>
 					<li>
-						<Link>launchpad</Link>
+						<Link to='/admin'>Admin</Link>
 					</li>
 					<li>
-						<Link>staking v1</Link>
+						<Link to="/raffles">Raffles</Link>
 					</li>
 					<li>
-						<Link>staking v2</Link>
-					</li>
-					<li>
-						<Link>rebel kanga mint</Link>
-					</li>
-					<li>
-						<Link>deploy</Link>
-					</li>		
+						<Link to="/nfts">Projects</Link>
+					</li>	
 				</ul>
 			)}
 		</NavbarStyles>
