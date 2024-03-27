@@ -1,5 +1,6 @@
 import HomePageStyles from "../assets/styles/HomePageStyles";
 import NavbarHome from "../components/Navbar/NavbarHome";
+import Footer from "../components/Navbar/Footer";
 import Cone from '../assets/images/cone.png'
 import { Link } from "react-router-dom";
 
@@ -26,6 +27,7 @@ const Home = () => {
 					</div>
 				</div>
 			</section>
+			<Footer/>
 		</HomePageStyles>
 	);
 };
