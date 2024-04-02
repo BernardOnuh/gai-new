@@ -1,6 +1,7 @@
 import { Link } from 'react-router-dom';
 import Logo from '../../assets/images/logo.png';
 import NavbarStyles from '../../assets/styles/NavbarStyles';
+import ConnectBtn from './ConnectBtn';
 import { useState } from 'react';
 
 const NavbarNftCardDetails = ({setShowModal}) => {
@@ -14,7 +15,7 @@ const NavbarNftCardDetails = ({setShowModal}) => {
 				<Link className='logo-link' to='/'>
 					<img src={Logo} alt='logo' />
 				</Link>
-				<button onClick={() => setShowModal(true)}>connect your wallet</button>
+				<ConnectBtn/>
 				<div className='navbar' onClick={() => setIsBarOpen(!isBarOpen)}>
 					<i className='fa fa-bars'></i>
 				</div>

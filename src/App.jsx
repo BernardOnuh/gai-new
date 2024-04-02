@@ -21,7 +21,7 @@ function App() {
 			<Routes>
 				<Route exact path='/' element={<Home />} />
 				<Route exact path='/nfts' element={<Explore />} />
-				<Route exact path='/nfts/card/:name/:id' element={<NftCardDetails />} />
+				<Route exact path='/nfts/card/:name/:stakingAddress' element={<NftCardDetails />} />
 				<Route
 					exact
 					path='/nfts/card/:name/:id/connected/:id'

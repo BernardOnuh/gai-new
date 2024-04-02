@@ -9,6 +9,27 @@ const NftCardDetailsStyles = styled.section`
 	position: relative;
 	padding-bottom: 5rem;
 
+	.centered-buttons {
+		display: flex;
+		justify-content: center; /* Horizontally center the buttons */
+		margin-top: 20px; /* Adjust margin-top as needed */
+	}
+	
+	.rounded-button {
+		border-radius: 20px;
+		background-color: #007bff; /* Example background color */
+		color: white;
+		padding: 10px 20px;
+		border: none;
+		cursor: pointer;
+		margin: 5px; /* Adjust margin as needed */
+	}
+	
+	.rounded-button:hover {
+		background-color: #0056b3; /* Example hover background color */
+	}
+	
+
 	.card-container {
 		width: 90%;
 		margin: 3rem auto 0 auto;
@@ -140,6 +161,22 @@ const NftCardDetailsStyles = styled.section`
 				}
 			}
 		}
+	}
+	button {
+		align-self: center;
+		color: var(--light-white);
+		text-transform: uppercase;
+		letter-spacing: normal.2rem;
+		font-weight: bold;
+		padding: 1.5rem 5rem;
+		background:linear-gradient(
+			to right,
+			var(--green),
+			var(--purple),
+			var(--mid)
+		) ;
+		border: transparent;
+		border-radius: 3rem;
 	}
 
 	/* RESPONSIVENESS */

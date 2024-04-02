@@ -8,6 +8,7 @@ const ExploreCardStyles = styled.article`
 	text-align: center;
 	position: relative;
 	z-index: 5;
+	cursor: pointer;
 
 	&::before {
 		content: '';
