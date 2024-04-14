@@ -2,7 +2,7 @@ import { Link } from 'react-router-dom';
 import Logo from '../../assets/images/logo.png';
 import NavbarStyles from '../../assets/styles/NavbarStyles';
 import { useState } from 'react';
-import { ConnectWallet } from "@thirdweb-dev/react";
+import { ConnectButton } from '@rainbow-me/rainbowkit';
 
 
 const NavbarNftConnected = () => {
@@ -14,7 +14,7 @@ const NavbarNftConnected = () => {
 				<Link className='logo-link' to='/'>
 					<img src={Logo} alt='logo' />
 				</Link>
-				<ConnectWallet switchToActiveChain={true}/>
+				<ConnectButton/>
 				<div className='navbar' onClick={() => setIsBarOpen(!isBarOpen)}>
 					<i className='fa fa-bars'></i>
 				</div>

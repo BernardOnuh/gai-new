@@ -1,8 +1,8 @@
-import { ConnectWallet } from "@thirdweb-dev/react";
+import { ConnectButton } from '@rainbow-me/rainbowkit';
 
 const ConnectBtn = () => {
   return (
-    <ConnectWallet switchToActiveChain={true} />
+    <ConnectButton/>
   )
 }
 
