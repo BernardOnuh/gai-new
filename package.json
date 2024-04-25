@@ -12,10 +12,8 @@
   "dependencies": {
     "@rainbow-me/rainbowkit": "^2.0.1",
     "@tanstack/react-query": "^5.24.1",
-    "@thirdweb-dev/react": "^4.6.1",
-    "@thirdweb-dev/sdk": "^4.0.62",
     "@web3modal/wagmi": "^4.0.5",
-    "ethers": "^5.7.2",
+    "axios": "^1.6.8",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-icons": "^5.0.1",

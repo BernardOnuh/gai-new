@@ -1,18 +1,32 @@
+import { Link } from 'react-router-dom';
 import ConeImg from '../../assets/images/cone.png';
 import AdminLinkStyles from '../../assets/styles/AdminLinkStyles';
-import { Link } from 'react-router-dom'; // Import Link from react-router-dom
 
 const AdminLink = () => {
 	return (
 		<AdminLinkStyles>
 			<img src={ConeImg} alt='img' />
-			<Link to='/admin'><li>Home</li></Link>
-			<Link to='/admin/fee'><li>Fee</li></Link>
-			<Link to='/admin/reward'><li>Reward</li></Link>
-			<Link to='/admin/contract'><li>Contract</li></Link>
-			<Link to='/admin/other'><li>Other</li></Link>
-			<Link to='/admin/boost-nft'><li>Boost NFT</li></Link>
-			<Link to='/admin/platform-admin'><li>Platform Admin</li></Link>
+			<li>
+				<Link to='/admin'>Home</Link>
+			</li>
+			<li>
+				<Link to='/admin/fee'>Fee</Link>
+			</li>
+			<li>
+				<Link to='/admin/reward'>Reward</Link>
+			</li>
+			<li>
+				<Link to='/admin/contract'>contract</Link>
+			</li>
+			<li>
+				<Link to='/admin/other'>other</Link>
+			</li>
+			<li>
+				<Link to='/admin/boost-nft'>boost nft</Link>
+			</li>
+			<li>
+				<Link to='/admin/platform-admin'>platform admin</Link>
+			</li>
 		</AdminLinkStyles>
 	);
 };

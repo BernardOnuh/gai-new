@@ -6,9 +6,8 @@ import { BrowserRouter as Router } from 'react-router-dom'
 import '@rainbow-me/rainbowkit/styles.css';
 import { getDefaultConfig, RainbowKitProvider } from '@rainbow-me/rainbowkit';
 import { WagmiProvider } from 'wagmi';
-import { arbitrum, base, mainnet, optimism, polygon, zora,cronos } from 'wagmi/chains';
+import { arbitrum, base, mainnet, optimism, polygon, zora,cronos,polygonMumbai,sepolia} from 'wagmi/chains';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
-import { ThirdwebProvider } from "@thirdweb-dev/react";
 
 
 
@@ -17,7 +16,7 @@ import { ThirdwebProvider } from "@thirdweb-dev/react";
 const config = getDefaultConfig({
 	appName: 'RainbowKit demo',
 	projectId: 'YOUR_PROJECT_ID',
-	chains: [ polygon, cronos],
+	chains: [ polygon, cronos,polygonMumbai,sepolia],
   });
   
   const queryClient = new QueryClient();
@@ -26,13 +25,11 @@ ReactDOM.createRoot(document.getElementById('root')).render(
 	<React.StrictMode>
     <WagmiProvider config={config}>
       <QueryClientProvider client={queryClient}>
-      <ThirdwebProvider >
         <RainbowKitProvider>
-          <Router>
-            <App />
-          </Router>
+		<Router>
+			<App />
+		</Router>
         </RainbowKitProvider>
-        </ThirdwebProvider>
       </QueryClientProvider>
     </WagmiProvider>
   </React.StrictMode>,

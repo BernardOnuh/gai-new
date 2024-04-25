@@ -1,5 +1,4 @@
 import styled from "styled-components";
-import { Link } from 'react-router-dom'; // Import Link from react-router-dom
 
 const AdminLinkStyles = styled.ul`
 	list-style: none;
@@ -21,7 +20,7 @@ const AdminLinkStyles = styled.ul`
 	}
 
 	li:not(:last-of-type) {
-		margin-bottom: 2.5rem; /* Add margin between list items */
+		margin-bottom: 2.5rem;
 	}
 
 	li {
@@ -33,28 +32,21 @@ const AdminLinkStyles = styled.ul`
 		border: 3px solid transparent;
 		opacity: 0.8;
 		text-align: center;
+	}
+
+	li a {
 		text-decoration: none;
 		color: var(--light-white);
 		text-transform: uppercase;
 		letter-spacing: 0.1rem;
 		font-size: 1.8rem;
 		font-weight: 400;
-		margin-bottom: 2.5rem;
-	}
-
-	li a {
-		text-decoration: none;
 	}
 
 	/* RESPONSIVENESS */
 	@media screen and (max-width: 1100px) {
 		margin-bottom: 6rem;
 		width: 100%;
-	}
-
-	a {
-		text-decoration: none;
-		padding-bottom: 2.5rem;
 	}
 `;
 

@@ -2,11 +2,15 @@ import AdminHomeStyles from '../../assets/styles/AdminHomeStyles';
 import NavbarNftConnected from '../../components/Navbar/NavbarNftConnected';
 import AdminLink from '../../components/AdminLink/AdminLink';
 import { useEffect, useState } from 'react';
-import { StakingFactory,StakingFactoryAbi,StakingFactoryNew,StakingFactoryNewAbi } from '../../../contract/contract';
-import { useAddress, useContractRead, useContract,useContractWrite,useContractEvents  } from "@thirdweb-dev/react"
+import { StakingFactory,StakingFactoryAbi,StakingFactoryNew,StakingFactoryNewAbi,tokenAbi } from '../../../contract/contract';
+import { useAccount,useWriteContract,useChainId } from 'wagmi'
+import { useReadContract } from 'wagmi'
 import axios from 'axios';
 
 const AdminHome = () => {
+  const { writeContract } = useWriteContract()
+  const [wei, setWei] = useState('');
+  const [tokenContract, setTokenContract] = useState('');
   const [href, setHref] = useState('')
 	const [collectionName, setCollectionName] = useState('');
   const [description, setDescription] = useState('');
@@ -23,10 +27,11 @@ const AdminHome = () => {
   const [website, setWebsite] = useState('www.');
   const [twitter, setTwitter] = useState('');
   const [stakingAddress, setstakingAddress] = useState('');
-  const [loading, setLoading] = useState(false);
+  const [isLoading, setLoading] = useState(false);
   const [deploymentSuccess, setDeploymentSuccess] = useState(false);
-  const address = useAddress()
-console.log(address)
+  const account = useAccount()
+  const chainId = useChainId()
+console.log(account.address)
   const handleFileChange = (event) => {
     setImage(event.target.files[0]);
     setImageChosen(true);
@@ -57,59 +62,21 @@ console.log(address)
     });
   };
 
-  const deploy = async () => {
-    try {
-      const data = await deployStakingContract({
-        args: [
-          collectionName,
-          description,
-          collectionAddress,
-          rewardTokenAddress,
-          stakingFee,
-          timeUnit,
-          rewardsPerUnitTime,
-          endDate,
-          ],
-        overrides: {value:wei}
-      });
-      console.info("contract call successs", data);
-      
-      // Extract address from the first event
-      if (data && data.length > 0) {
-        const event0 = data[0];
-        const EventAddress = event0.data.address; // Assuming address is a property in the data object
-        console.log("Address from event 0:", EventAddress);
-        setstakingAddress(EventAddress)
-      } else {
-        console.log("No events found");
-      }
-      
-    } catch (err) {
-      console.error("contract call failure", err);
+  useEffect(() => {
+    if (chainId === 137) {
+      setWei('75000000000000000000');
+      setTokenContract('0xC077560020d53F4BEf6C87190a988B037A991eb6')
+    } else if (chainId === 25) {
+      setWei('25000000000000000000');
+      setTokenContract('0xC90F6b13c0747590FA47d8e19860C13818DaB86B')
+    } else {
+      setWei('200'); // Default case or handle as needed
+      setTokenContract("0x017dD5390A20fd402A061a323847F1e4c46715Ac")
     }
-  }
+  }, [chainId]);
 
-
-  const postData = async () => {
-    try {
-      const data = {
-        name:collectionName,
-        description,
-        image:responseMessage,
-        website,
-        twitter,
-        walletAddress:address,
-        stakingAddress
-      };
-
-      const response = await axios.post('https://gaia-database.onrender.com/api/gaia', data);
-      setResponse(response.data);
-    } catch (error) {
-      console.error('Error:', error);
-    }
-  };
-
-  const wei ='200'
+console.log(wei)
+console.log(tokenContract)
 	// Scroll page
 	useEffect(() => {
 		const href = window.location.href.substring(window.location.href.lastIndexOf('#') + 1);
@@ -120,16 +87,6 @@ console.log(address)
 			element.scrollIntoView({behavior: 'smooth'});
 		}
 	}, [href])
-  const { contract, isLoading, error } = useContract(
-    StakingFactoryNew,
-    StakingFactoryNewAbi,
-  );
-  console.log(StakingFactory)
-
-  const { mutateAsync:deployStakingContract, isLoading:deployStakingContractLoad, error:deployStakingContractError } = useContractWrite(
-    contract,
-    "deployStakingContract"
-  );
 
 
 
@@ -150,26 +107,36 @@ console.log(address)
 
 }, [Event, deploymentSuccess]);  // Ensure that this useEffect hook runs only when Event changes
 
+const handleClick = async () => {
+  console.log('Button clicked, setting loading true');
+  setLoading(true);
+  try {
+    await writeContract({
+      abi: StakingFactoryNewAbi,
+      address: tokenContract,
+      functionName: 'deployStakingContract',
+      args: [
+        collectionName,
+        description,
+        collectionAddress,
+        rewardTokenAddress,
+        stakingFee,
+        timeUnit,
+        rewardsPerUnitTime,
+        endDate,
+      ],
+      value: wei,
+    });
+    console.log('Write contract completed');
+  } catch (error) {
+    console.error('Error deploying staking contract:', error);
+  } finally {
+    console.log('Setting loading false');
+    setLoading(false);
+  }
+};
 
   
-  const deployAndPostData = async () => {
-    try {
-      setLoading(true); // Set loading state to true
-      // Execute deploy function
-      await deploy();
-      // If deploy is successful, execute postData function
-     // await postData();
-      // Alert successful after both deploy and postData are successful
-      alert('Check Contract for your Deployed Contract');
-    } catch (error) {
-      // Handle errors appropriately
-      console.error("Error:", error);
-      // You might want to display an error message to the user here
-      alert('Error occurred');
-    } finally {
-      setLoading(false); // Set loading state to false after execution
-    }
-  };
 
 	return (
 		<AdminHomeStyles>
@@ -182,7 +149,7 @@ console.log(address)
 					<form>
 						<h2>Deploy NFT Staking</h2>
 						<div className='row-1'>
-        <label htmlFor='name'>COLLECTION NAME</label>
+        <label htmlFor='name'>COLLECTION NAME {chainId}</label>
         <input 
           type='text' 
           id='name' 
@@ -299,9 +266,12 @@ console.log(address)
     </div>
     */}
 					</form>
-          <button onClick={deployAndPostData} disabled={loading}>
-        {loading ? 'Loading...' : 'SUBMIT'}
-      </button>
+          
+          <button onClick={handleClick} disabled={isLoading}>
+            {isLoading ? 'Loading...' : 'Deploy'}
+          </button>
+
+
 				</div>
         
 			</div>

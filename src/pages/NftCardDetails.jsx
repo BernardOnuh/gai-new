@@ -4,13 +4,15 @@ import { data } from '../assets/inAppData/Explore.js';
 import NftCardDetailsStyles from '../assets/styles/NftCardDetailsStyles.js';
 import NavbarNftCardDetails from '../components/Navbar/NavbarNftCardDetails.jsx';
 import { StakingFactory,StakingFactoryAbi,StakingFactoryNew,StakingFactoryNewAbi,StakingAbi } from '../../contract/contract';
-import { useAddress, useContractRead, useContract,useContractWrite,useContractEvents  } from "@thirdweb-dev/react"
+import { useAccount,useWriteContract,useChainId } from 'wagmi'
+import { useReadContract,useReadContracts } from 'wagmi'
 import { Link } from 'react-router-dom';
 import axios from 'axios'
 
 
 const NftCardDetails = () => {
-	const address = useAddress()
+	const account = useAccount()
+	const chainId = useChainId()
     const [nftItemData, setNftItemData] = useState([]);
 	const [inputValue, setInputValue] = useState('');
     const [showModal, setShowModal] = useState(false);
@@ -23,7 +25,7 @@ const NftCardDetails = () => {
         setInputValue(event.target.value);
     };
 
-	const { contract, isLoading, error } = useContract(
+	{/*const { contract, isLoading, error } = useContract(
 		StakingFactoryNew,
 		StakingFactoryNewAbi,
 	  );
@@ -44,6 +46,7 @@ const NftCardDetails = () => {
 		"unStake",
 		[inputValue]
 	  );
+	  */}
     // Get the url parameters
     useEffect(() => {
         // Find the data item with the corresponding _id
@@ -100,7 +103,7 @@ const NftCardDetails = () => {
 					<div className='row-3'>
 						<p className='para-one'>My Staked </p>
 						{mystaked ? (
-							<p className='para-two'>{mystaked[0].toString()} NFT</p>
+							<p className='para-two'>0 NFT</p>
 						) : (
 							<p className='para-two'>Loading...</p> // Or any other appropriate placeholder
 						)}
@@ -109,7 +112,7 @@ const NftCardDetails = () => {
 					<div className='row-4'>
 						<p className='para-one'>Total Staked</p>
 						{stakednum ? (
-							<p className='para-two'>{stakednum.toString()} NFT</p>
+							<p className='para-two'>0 NFT</p>
 						) : (
 							<p className='para-two'>Loading...</p> // Or any other appropriate placeholder
 						)}
@@ -129,17 +132,18 @@ const NftCardDetails = () => {
     />
     <button 
         className='rounded-button' 
-        onClick={() => stake(inputValue)}
-        disabled={StakingContractLoad} // Disable the button while loading
-    >
-        {StakingContractLoad ? 'Staking...' : 'Stake'}
+        //onClick={() => stake(inputValue)}
+       // disabled={StakingContractLoad} // Disable the button while loading
+    >Stake
+        {/*{StakingContractLoad ? 'Staking...' : 'Stake'}*/}
     </button>
     <button 
         className='rounded-button' 
-        onClick={() => unstake(inputValue)}
-        disabled={unStakingContractLoad} // Disable the button while loading
+        //onClick={() => unstake(inputValue)}
+       // disabled={unStakingContractLoad} // Disable the button while loading
     >
-        {unStakingContractLoad ? 'Unstaking...' : 'Unstake'}
+		Unstake
+        {/*{unStakingContractLoad ? 'Unstaking...' : 'Unstake'}*/}
     </button>
 </div>
 				</div>

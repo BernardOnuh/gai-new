@@ -129,12 +129,12 @@ const AdminFeeStyles = styled.section`
 						letter-spacing: normal.2rem;
 						font-weight: bold;
 						padding: 1.5rem 5rem;
-						background:linear-gradient(
+						background: linear-gradient(
 							to right,
 							var(--green),
 							var(--purple),
 							var(--mid)
-						) ;
+						);
 						border: transparent;
 						border-radius: 3rem;
 					}
@@ -164,15 +164,6 @@ const AdminFeeStyles = styled.section`
 		}
 	}
 
-	label {
-		display: inline-block;
-		font-size: 1.5rem;
-		font-weight: bold;
-		letter-spacing: 0.1rem;
-		margin-bottom: 0.8rem;
-		cursor: pointer;
-	}
-
 	@media screen and (max-width: 600px) {
 		.admin-container {
 			&-links {
@@ -199,80 +190,6 @@ const AdminFeeStyles = styled.section`
 			}
 		}
 	}
-	/* Add this CSS to your AdminFeeStyles.css file or your preferred CSS file */
-
-/* Style for file input */
-#imageInput {
-  display: none; /* Hide the file input */
-}
-
-label[for="imageInput"] {
-  cursor: pointer; /* Change cursor to pointer when hovering over the label */
-  padding: 10px;
-  background-color: linear-gradient(
-	to right,
-	var(--green),
-	var(--purple),
-	var(--mid)
-);
-  border: 1px solid #ccc;
-  border-radius: 5px;
-  display: inline-block;
-}
-
-/* Style for the paragraph */
-p {
-  margin-top: 10px; /* Add some space above the paragraph */
-}
-
-/* Style for the upload button */
-button {
-	align-self: center;
-	cursor: pointer;
-	color: var(--light-white);
-	text-transform: uppercase;
-	letter-spacing: normal.2rem;
-	font-weight: bold;
-	padding: 1.5rem 5rem;
-	background:linear-gradient(
-		to right,
-		var(--green),
-		var(--purple),
-		var(--mid)
-	) ;
-	border: transparent;
-	border-radius: 3rem;
-	}
-
-button:hover {
-  background-color: #0056b3; /* Darken the background color on hover */
-}
-
-/* Style for the success message */
-.success-message {
-  margin-top: 10px; /* Add some space above the success message */
-  color: green;
-}
-/* Add this CSS to your AdminFeeStyles.css file or your preferred CSS file */
-
-.centered-container {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-
-.centered-content {
-  text-align: center;
-}
-
-/* Add this CSS if you prefer using CSS Grid */
-
-.centered-container {
-  display: grid;
-  place-items: center;
-}
-
-
 `;
 
 export default AdminFeeStyles;

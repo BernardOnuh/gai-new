@@ -3,12 +3,13 @@ import AdminFeeStyles from '../../assets/styles/AdminFeeStyles';
 import AdminLink from '../../components/AdminLink/AdminLink';
 import NavbarNftConnected from '../../components/Navbar/NavbarNftConnected';
 import { StakingFactory,StakingFactoryAbi,StakingFactoryNew,StakingFactoryNewAbi,StakingAbi } from '../../../contract/contract';
-import { useAddress, useContractRead, useContract,useContractWrite,useContractEvents  } from "@thirdweb-dev/react"
+import { useAccount,useWriteContract,useChainId } from 'wagmi'
+import { useReadContract } from 'wagmi'
 
 const AdminOther = () => {
 	const [href, setHref] = useState('');
 	// Scroll page
-	const address= useAddress()
+	const account = useAccount()
 	useEffect(() => {
 		const href = window.location.href.substring(
 			window.location.href.lastIndexOf('#') + 1,

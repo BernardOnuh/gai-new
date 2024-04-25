@@ -3,16 +3,23 @@ import AdminFeeStyles from '../../assets/styles/AdminFeeStyles';
 import AdminLink from '../../components/AdminLink/AdminLink';
 import NavbarNftConnected from '../../components/Navbar/NavbarNftConnected';
 import { StakingFactory,StakingFactoryAbi,StakingFactoryNew,StakingFactoryNewAbi,StakingAbi } from '../../../contract/contract';
-import { useAddress, useContractRead, useContract,useContractWrite,useContractEvents  } from "@thirdweb-dev/react"
+import { useAccount,useWriteContract,useChainId } from 'wagmi'
+import { useReadContract,useReadContracts } from 'wagmi'
 import axios from 'axios';
 
 
 const AdminContract = () => {
-	const address = useAddress()
+	const account = useAccount()
+	const chainId = useChainId()
+	const walletAddress = account.address
+	console.log('walletAddress', walletAddress)
+	console.log(account.address)
+	const [tokenContract, setTokenContract] = useState('');
 	const [href, setHref] = useState('');
 	const [loading, setLoading] = useState(false);
-	//const [collectionName, setCollectionName] = useState('');
-	const [collectionAddress, setCollectionAddress] = useState('0x');
+	const [collectionName, setCollectionName] = useState('');
+	const [description, setDescription] = useState('');
+	const [collectionAddress, setCollectionAddress] = useState('0x6eAca006c22DD330Dd5c14C90cD05D31556d67cD');
 	const [image, setImage] = useState(null);
 	const [response, setResponse] = useState('');
 	const [responseMessage, setResponseMessage] = useState('');
@@ -20,6 +27,15 @@ const AdminContract = () => {
 	const [website, setWebsite] = useState('www.');
 	const [twitter, setTwitter] = useState('');
 	// Scroll page
+	const wagmigotchiContract = {
+		address: tokenContract,
+		abi: StakingFactoryNewAbi,
+		};
+		const mlootContract = {
+		address: collectionAddress,
+		abi: StakingAbi,
+		};
+
 	useEffect(() => {
 		const href = window.location.href.substring(
 			window.location.href.lastIndexOf('#') + 1,
@@ -32,20 +48,120 @@ const AdminContract = () => {
 		}
 	}, [href]);
 
-	const { contract, isLoading, error } = useContract(
-		StakingFactoryNew,
-		StakingFactoryNewAbi,
-	  );
-	  const { data:balanceOf, isLoading:balanceOfLoading, error:balanceOfError } = useContractRead(contract, "getNumberOfDeployedContractsByAddress",[address]);
-	  const { data: addresses, isLoading: addressLoading, error: addressError } = useContractRead(contract, "getDeployedStakingContractsByAddress", [address]);
-	  const { contract: newContract } = useContract(collectionAddress, StakingAbi);
-	  const { data: collectionName, isLoading: nameLoading, error: nameError } = useContractRead(newContract, "collectionName");
-	  const { data: description, isLoading: descriptionLoading, error: descriptionError } = useContractRead(newContract, "description");
+	
+	useEffect(() => {
+		if (chainId === 137) {
+		  setTokenContract('0xC077560020d53F4BEf6C87190a988B037A991eb6')
+		} else if (chainId === 25) {
+		  setTokenContract('0xC90F6b13c0747590FA47d8e19860C13818DaB86B')
+		} else {
+		  setTokenContract("0x017dD5390A20fd402A061a323847F1e4c46715Ac")
+		}
+	  }, [chainId]);
+
+
+
+
+	{/*const result = useReadContract({
+		abi:StakingFactoryNewAbi,
+		address: tokenContract,
+		functionName: 'getNumberOfDeployedContractsByAddress',
+		args: [account.address], 
+	  })
+	  const { data: addresses, isLoading, isError, error } = useReadContract({
+		abi: StakingFactoryNewAbi,
+		address: tokenContract,
+		functionName: 'getDeployedStakingContractsByAddress',
+		args: [account.address],
+	  });
+	  if (isLoading) {
+		return <div>Loading deployed staking addresses...</div>;
+	  }
+	
+	  // Handle error state
+	  if (isError) {
+		return <div>Error loading addresses: {error.message}</div>;
+	  }
+	  if (isLoading) {
+		return <div>Loading deployed staking addresses...</div>;
+	  }
+	
+	  // Handle error state
+	  if (isError) {
+		return <div>Error loading addresses: {error.message}</div>;
+	  }/*}
+	  
+	  {/*
+	  const RealcollectionName = useReadContract({
+		abi: StakingAbi,
+		address: collectionAddress,
+		functionName: "collectionName",
+	  });
+	
+	  const descriptionData = useReadContract({
+		abi: StakingAbi,
+		address: collectionAddress,
+		functionName: "description",
+	  });
+	  */}
+
+	  const resultNew = useReadContracts({
+		contracts: [
+		  {
+			...wagmigotchiContract,
+			functionName: 'getNumberOfDeployedContractsByAddress',
+			args: [account.address], 
+		  },
+		  {
+			...wagmigotchiContract,
+			functionName: 'getDeployedStakingContractsByAddress',
+			args: [account.address],
+		  },
+		  {
+			...mlootContract,
+			functionName: "collectionName",
+		  },
+		  {
+			...mlootContract,
+			functionName: "description",
+		  },
+		],
+	  });
+	  console.log()
+	  const  NoD = resultNew?.data?.[0]?.result;
+	  const addresses = resultNew?.data?.[1]?.result;
+	  const collectionN = resultNew?.data?.[2] ? resultNew.data[2].result : undefined;
+	  const collectionD = resultNew?.data?.[3] ? resultNew.data[3].result : undefined;
+	  
+
+	  useEffect(() => {
+        if (collectionN) {
+            setCollectionName(collectionN);
+        }
+    }, [collectionN]);
+
+    // Update state when descriptionData.data changes
+    useEffect(() => {
+        if (collectionD) {
+            setDescription(collectionD);
+        }
+    }, [collectionD])
+
+	  //console.log(resultNew.data.result[0])
+	
+	  // Function to update the state with fetched data
+	
+	  //console.log(result.data.toString())
+	  //const { data:balanceOf, isLoading:balanceOfLoading, error:balanceOfError } = useContractRead(contract, "getNumberOfDeployedContractsByAddress",[address]);
+	  //const { data: addresses, isLoading: addressLoading, error: addressError } = useContractRead(contract, "getDeployedStakingContractsByAddress", [address]);
+	  //const { contract: newContract } = useContract(collectionAddress, StakingAbi);
+	  //const { data: collectionName, isLoading: nameLoading, error: nameError } = useContractRead(newContract, "collectionName");
+	  //const { data: description, isLoading: descriptionLoading, error: descriptionError } = useContractRead(newContract, "description");
       const postData = async () => {
 		setLoading(true); 
 		try {
-			console.log(collectionName);
-			console.log(description);
+			//console.log(collectionName);
+			//console.log(description);
 			console.log(responseMessage)
 			console.log(website)
 			console.log(twitter)
@@ -57,7 +173,7 @@ const AdminContract = () => {
 			image:responseMessage,
 			website,
 			twitter,
-			walletAddress:address,
+			walletAddress,
 			stakingAddress:collectionAddress,
 		  };
 		  const response = await axios.post('https://gaia-database.onrender.com/api/gaia', data);
@@ -116,8 +232,8 @@ const AdminContract = () => {
 		}
 	  };
 
-	console.log(balanceOf)
-	console.log(addresses)
+	//console.log(balanceOf)
+	//console.log(addresses)
 	return (
 		<AdminFeeStyles>
 			<NavbarNftConnected />
@@ -129,22 +245,24 @@ const AdminContract = () => {
 				
 			
 				<div id={href} className='admin-container-form'>
+				
 				<form>
+				
 						<h2>Deployed Contracts </h2>
 						<div>Number of Deployed Contracts</div>
-						<div>{balanceOf ? balanceOf.toString() : "Loading..."}</div>
-				<div>
-            <h2>Your Deployed Staking Addresses:</h2>
-            {Array.isArray(addresses) && addresses.length > 0 ? (
-                <ul>
-                    {addresses.map((address, index) => (
-                        <li key={index}>{address}</li>
-                    ))}
-                </ul>
-            ) : (
-                <p>No wallet addresses found</p>
-            )}
-        </div>
+						<div>{NoD ? NoD.toString() : "Loading..."}</div>
+						<div>
+			<h2>Your Deployed Staking Addresses:</h2>
+			{Array.isArray(addresses) && addresses.length > 0 ? (
+				<ul>
+				{addresses.map((address, index) => (
+					<li key={index}>{address}</li>
+				))}
+				</ul>
+			) : (
+				<p>No wallet addresses found</p>
+			)}
+			</div>
 		</form>
 					<form>
 					<h2>Update NFT Staking Contracts </h2>

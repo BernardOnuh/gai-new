@@ -7,7 +7,7 @@ const NavbarStyles = styled.nav`
 	left: 0;
 	height: 8rem;
 	z-index: 5;
-	bac 
+	background-color: var(--pitch-black);
 	display: flex;
 	justify-content: center;
 	align-items: center;

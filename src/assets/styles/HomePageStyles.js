@@ -69,7 +69,6 @@ const HomePageStyles = styled.div`
 
 				button {
 					padding: 1rem 2rem;
-					margin-bottom:2rem;
 					border-radius: 5rem;
 					color: var(--light-white);
 					background: linear-gradient(black, black) padding-box,
