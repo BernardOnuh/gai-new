@@ -7,6 +7,9 @@ import { useAccount,useWriteContract,useChainId } from 'wagmi'
 import { useReadContract } from 'wagmi'
 import axios from 'axios';
 
+import DatePicker from 'react-datepicker';
+import 'react-datepicker/dist/react-datepicker.css';
+
 const AdminHome = () => {
   const { writeContract } = useWriteContract()
   const [wei, setWei] = useState('');
@@ -19,7 +22,7 @@ const AdminHome = () => {
   const [stakingFee, setStakingFee] = useState(0);
   const [timeUnit, setTimeUnit] = useState(10);
   const [rewardsPerUnitTime, setRewardsPerUnitTime] = useState(10);
-  const [endDate, setEndDate] = useState(10);
+  const [endDate, setEndDate] = useState(Math.floor(Date.now() / 1000));
   const [image, setImage] = useState(null);
   const [response, setResponse] = useState('');
   const [responseMessage, setResponseMessage] = useState('');
@@ -29,14 +32,16 @@ const AdminHome = () => {
   const [stakingAddress, setstakingAddress] = useState('');
   const [isLoading, setLoading] = useState(false);
   const [deploymentSuccess, setDeploymentSuccess] = useState(false);
+  const [selectedDate, setSelectedDate] = useState(new Date());
   const account = useAccount()
   const chainId = useChainId()
+
 console.log(account.address)
   const handleFileChange = (event) => {
     setImage(event.target.files[0]);
     setImageChosen(true);
   };
-
+const [startDate, setStartDate] = useState(new Date());
   const handleUpload = () => {
     event.preventDefault();
     if (!image) {
@@ -136,7 +141,13 @@ const handleClick = async () => {
   }
 };
 
-  
+const handleDateChange = (date) => {
+  setStartDate(date);
+  const timestampInSeconds = Math.floor(date.getTime() / 1000);
+  setEndDate(timestampInSeconds)
+  console.log("Time",timestampInSeconds); // Log the date in seconds to the console
+};
+
 
 	return (
 		<AdminHomeStyles>
@@ -225,17 +236,9 @@ const handleClick = async () => {
           onChange={(e) => setRewardsPerUnitTime(e.target.value)} 
         />
       </div>
-
-      <div className='row-5'>
-        <label htmlFor='endDate'>End Date</label>
-        <input 
-          type='text' 
-          id='endDate' 
-          placeholder='End Date' 
-          value={endDate} 
-          onChange={(e) => setEndDate(e.target.value)} 
-        />
-      </div>
+    <div>
+     
+    </div>
       {/*<div className='row-5'>
         <label htmlFor='website'>Website</label>
         <input 
@@ -265,6 +268,13 @@ const handleClick = async () => {
       {responseMessage && <p>Image Uploaded Successfully: {responseMessage}</p>}
     </div>
     */}
+      <div className="App">
+          <h1>End Date</h1>
+          <DatePicker
+            selected={startDate}
+            onChange={handleDateChange}
+          />
+        </div>
 					</form>
           
           <button onClick={handleClick} disabled={isLoading}>

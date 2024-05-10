@@ -165,7 +165,7 @@ const AdminContract = () => {
 			console.log(responseMessage)
 			console.log(website)
 			console.log(twitter)
-			console.log(address)
+			console.log(walletAddress)
 			console.log(collectionAddress)
 		  const data = {
 			name:collectionName,
@@ -175,6 +175,7 @@ const AdminContract = () => {
 			twitter,
 			walletAddress,
 			stakingAddress:collectionAddress,
+			chain:chainId
 		  };
 		  const response = await axios.post('https://gaia-database.onrender.com/api/gaia', data);
 		  setResponse(response.data);

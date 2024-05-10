@@ -6,6 +6,14 @@ const AdminHomeStyles = styled.section`
 	background: var(--dark);
 	color: var(--light-white);
 	padding: 0 1.5rem;
+]
+
+	.DatePicker {
+		border: 1px solid #ccc;
+		padding: 8px;
+		font-size: 14px;
+		width: 200px;
+	  }
 
 	nav {
 		.nav-center {
@@ -35,6 +43,8 @@ const AdminHomeStyles = styled.section`
 			}
 		}
 	}
+
+
 
 	.admin-container {
 		display: flex;
