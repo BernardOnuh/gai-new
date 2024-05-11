@@ -17,6 +17,7 @@ const config = getDefaultConfig({
 	appName: 'RainbowKit demo',
 	projectId: 'YOUR_PROJECT_ID',
 	chains: [ polygon, cronos,polygonMumbai,sepolia],
+  autoConnect:false,
   });
   
   const queryClient = new QueryClient();

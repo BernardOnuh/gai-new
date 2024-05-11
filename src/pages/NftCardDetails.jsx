@@ -17,14 +17,85 @@ const NftCardDetails = () => {
 	const [inputValue, setInputValue] = useState('');
     const [showModal, setShowModal] = useState(false);
     const [showModal2, setShowModal2] = useState(false);
-    const { name, stakingAddress } = useParams(); // Extracting _id and walletId from URL
+    const { name, stakingAddress,chain } = useParams(); // Extracting _id and walletId from URL
 	const [data, setData] = useState([]);
 	console.log("name:", name);
 	console.log("walletId:", stakingAddress);
+	console.log("chainId:", chain);
+	const apiKey = "demo";
+
+    let baseURL;
+    if (chainId ===11155111) {
+        baseURL = `https://eth-sepolia.g.alchemy.com/nft/v3/${apiKey}/getNFTsForOwner/`;
+    } else if (chainId === 137) {
+        baseURL = `https://polygon-mainnet.g.alchemy.com/nft/v3/${apiKey}/getNFTsForOwner/`;
+    } else {
+        // Handle unsupported chainId or provide a default URL
+        console.error("Unsupported chainId:", chainId);
+        // Provide a default URL or handle the error accordingly
+        return null; // or provide a default URL
+    }
+
+    const ownerAddr = [account.address];
+    const pageSize = 2;
+
+    // Construct the axios request:
+    const config = {
+        method: 'get',
+        url: `${baseURL}?owner=${ownerAddr}&pageSize=${pageSize}`
+    };
+
+    // Make the request and print the formatted response:
+    axios(config)
+        .then(response => console.log(JSON.stringify(response.data, null, 2)))
+        .catch(error => console.log(error));
+
+    // Rest of your component code...
+
 	const handleInputChange = (event) => {
         setInputValue(event.target.value);
     };
+	const chainIdMatch = parseInt(chain) === chainId;
+	const result = useReadContract({
+		abi:StakingAbi,
+		address:stakingAddress,
+		functionName: "collectionName",
+	  })
+	  const CollectionAddress = useReadContract({
+		abi:StakingAbi,
+		address:stakingAddress,
+		functionName: "collectionAddress",
+	  })
+	  const description = useReadContract({
+		abi:StakingAbi,
+		address:stakingAddress,
+		functionName: "description",
+	  })
 
+	  const stakednum = useReadContract({
+		abi:StakingAbi,
+		address:stakingAddress,
+		functionName: "totalStaked",
+	  })
+
+	  const mystaked = useReadContract({
+		abi:StakingAbi,
+		address:stakingAddress,
+		functionName: "stakers",
+		args: [account.address]
+	  })
+
+	  const endDate = useReadContract({
+		abi:StakingAbi,
+		address:stakingAddress,
+		functionName: "endDate",
+	  })
+	  console.log(account.address)
+	 console.log("endDate",CollectionAddress.data)
+
+
+
+		
 	{/*const { contract, isLoading, error } = useContract(
 		StakingFactoryNew,
 		StakingFactoryNewAbi,
@@ -70,7 +141,9 @@ const NftCardDetails = () => {
 	  console.log(data)
 	  console.log(data)
 	  const shortStakingAddress = stakingAddress ? `${stakingAddress.slice(0, 6)}...` : '';
+	  const chainMismatch = chainId !== chain;
 	// Link to the image in public folder
+	console.log("result",result.data)
 
 	return (
 		<NftCardDetailsStyles>  
@@ -93,6 +166,8 @@ const NftCardDetails = () => {
 
 					<div className='row-2'>
 						<h5>Earn {name} from the Gaia Ecosystem</h5>
+						<h2>Description</h2>
+						<p>{description.data}</p>
 						<div className='input-box'>
 							<input type='text' />
 							<input type='text' />
@@ -101,28 +176,32 @@ const NftCardDetails = () => {
 					</div>
 
 					<div className='row-3'>
-						<p className='para-one'>My Staked </p>
-						{mystaked ? (
-							<p className='para-two'>0 NFT</p>
+						<p className='para-one'>My Staked {result.data}</p>
+						{mystaked && mystaked.data && mystaked.data.length > 0 ? (
+							<p className='para-two'>{Number(mystaked.data[0])} NFT</p>
 						) : (
-							<p className='para-two'>Loading...</p> // Or any other appropriate placeholder
+							<p className='para-two'>Loading...</p>
 						)}
 					</div>
 
+
 					<div className='row-4'>
 						<p className='para-one'>Total Staked</p>
-						{stakednum ? (
-							<p className='para-two'>0 NFT</p>
+						{result ? (
+							<p className='para-two'>{Number(stakednum.data)} NFT</p>
 						) : (
 							<p className='para-two'>Loading...</p> // Or any other appropriate placeholder
 						)}
 					</div>
 
 					<div className='row-5'>
-						<p className='para-one'>37d 14h 36m 3s</p>
+						<p className='para-one'>37d 14h 36m 3s {endDate.data}</p>
 					</div>
 
 					<div className='centered-buttons'>
+					{ !chainIdMatch ? (
+                <p>Please switch to the correct blockchain.</p>
+            ) : (
     <input 
         type="text" 
         placeholder="Enter value" 
@@ -130,6 +209,7 @@ const NftCardDetails = () => {
 		className='rounded-button' 
         onChange={handleInputChange} 
     />
+)}
     <button 
         className='rounded-button' 
         //onClick={() => stake(inputValue)}
@@ -145,6 +225,7 @@ const NftCardDetails = () => {
 		Unstake
         {/*{unStakingContractLoad ? 'Unstaking...' : 'Unstake'}*/}
     </button>
+	   
 </div>
 				</div>
 			</div>
