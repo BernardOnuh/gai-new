@@ -36,7 +36,7 @@ const AdminBoost = () => {
 							</div>
 							<div className='row-1-input'>
 								<div className='row-1-input-1'>
-									<label htmlFor='boost'>Enter NFT adrress</label>
+									<label htmlFor='boost'>ENTER NFT ADDRESS</label>
 									<input type='text' placeholder='Enter address' id='boost' />
 								</div>
 								<button>submit</button>

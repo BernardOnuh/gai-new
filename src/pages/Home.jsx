@@ -3,6 +3,7 @@ import NavbarHome from "../components/Navbar/NavbarHome";
 import Cone from '../assets/images/cone.png'
 import { Link } from "react-router-dom";
 
+
 const Home = () => {
 	return (
 		<HomePageStyles>
@@ -22,6 +23,9 @@ const Home = () => {
 						<h2>gaia finance</h2>
 						<Link to='/nfts'>
 							<button>explore now</button>
+						</Link>
+						<Link to='/https://gaia-eco.netlify.app/'>
+							<button>Royalties</button>
 						</Link>
 					</div>
 				</div>

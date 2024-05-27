@@ -23,6 +23,7 @@ const HomePageStyles = styled.div`
 
 			.header-one {
 				margin-bottom: 7rem;
+				margin-top: -5rem;
 				position: relative;
 				z-index: 5;
 
@@ -52,6 +53,7 @@ const HomePageStyles = styled.div`
 				}
 			}
 
+
 			.header-two {
 				h6 {
 					font-size: calc(0.5rem + 1vw);
@@ -76,6 +78,8 @@ const HomePageStyles = styled.div`
 					border: 2px solid transparent;
           text-transform: uppercase;
 					cursor: pointer;
+					margin-bottom: 7rem;
+					margin-left:1.5rem;
 				}
 			}
 		}

@@ -34,7 +34,7 @@ const AdminPlatform = () => {
 							</div>
 							<div className='row-1-input'>
 								<div className='row-1-input-1'>
-									<label htmlFor='contract'>NFT contract address</label>
+									<label htmlFor='contract'>NFT CONTRACT ADDRESS</label>
 									<input
 										type='text'
 										placeholder='Enter contract address'
@@ -51,7 +51,7 @@ const AdminPlatform = () => {
 							</div>
 							<div className='row-2-input'>
 								<div className='row-2-input-1'>
-									<label htmlFor='token'>Enter Token Address</label>
+									<label htmlFor='token'>ENTER TOKEN ADDRESS</label>
 									<input type='text' placeholder="Enter Token id'" id='token' />
 								</div>
 							</div>
@@ -63,7 +63,7 @@ const AdminPlatform = () => {
 							</div>
 							<div className='row-3-input'>
 								<div className='row-3-input-1'>
-									<label htmlFor='recover'>Token address</label>
+									<label htmlFor='recover'>TOKEN ADDRESS</label>
 									<input
 										type='text'
 										placeholder='Enter Token Address'
@@ -71,7 +71,7 @@ const AdminPlatform = () => {
 									/>
 								</div>
 								<div className='row-3-input-2'>
-									<label htmlFor='amount'>Amount</label>
+									<label htmlFor='amount'>AMOUNT</label>
 									<input
 										type='text'
 										placeholder='Enter reward Amount'
@@ -87,7 +87,7 @@ const AdminPlatform = () => {
 							</div>
 							<div className='row-3-input'>
 								<div className='row-3-input-1'>
-									<label htmlFor='issue'>Enter Token id&apos;s</label>
+									<label htmlFor='issue'>ENTER TOKEN ID&apos;S</label>
 									<input
 										type='text'
 										placeholder="Enter Token id's"

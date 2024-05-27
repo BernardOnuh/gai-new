@@ -6,6 +6,7 @@ const AdminHomeStyles = styled.section`
 	background: var(--dark);
 	color: var(--light-white);
 	padding: 0 1.5rem;
+	margin-bottom: 7rem;
 ]
 
 	.DatePicker {
@@ -137,6 +138,7 @@ const AdminHomeStyles = styled.section`
 			button {
 				display: inline-block;
 				margin-top: 1.5rem;
+				margin-bottom:3rem;
 				background: linear-gradient(
 					to right,
 					var(--green),

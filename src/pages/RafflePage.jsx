@@ -47,7 +47,7 @@ const RafflePage = () => {
 					</div>
 					<div className='row-3'>
 						<label htmlFor='item'>Item Name</label>
-						<input type='text' placeholder='e.g. CroDooNFT' id='item' />
+						<input type='text' placeholder='e.g. Ax0l on Cronos' id='item' />
 					</div>
 					<div className='row-4'>
 						<label htmlFor='desc'>Description</label>

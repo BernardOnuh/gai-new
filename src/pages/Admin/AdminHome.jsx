@@ -160,7 +160,7 @@ const handleDateChange = (date) => {
 					<form>
 						<h2>Deploy NFT Staking</h2>
 						<div className='row-1'>
-        <label htmlFor='name'>COLLECTION NAME {chainId}</label>
+        <label htmlFor='name'>COLLECTION NAME</label>
         <input 
           type='text' 
           id='name' 

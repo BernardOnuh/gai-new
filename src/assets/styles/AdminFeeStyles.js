@@ -43,6 +43,26 @@ const AdminFeeStyles = styled.section`
 		width: 88%;
 		margin: 5rem auto 0 auto;
 
+		button {
+			display: inline-block;
+			margin-top: 1.5rem;
+			margin-bottom: 10rem;
+			background: linear-gradient(
+				to right,
+				var(--green),
+				var(--purple),
+				var(--mid)
+			);
+			border: 0.1rem solid transparent;
+			color: var(--light-white);
+			padding: 1.5rem 0.5rem;
+			border-radius: 3rem;
+			cursor: pointer;
+			font-size: 1.8rem;
+			letter-spacing: 0.2rem;
+			font-weight: bold;
+		}
+
 		&-form {
 			padding: 1.5rem 2rem;
 			background: var(--pitch-black);

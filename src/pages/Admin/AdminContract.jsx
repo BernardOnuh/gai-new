@@ -337,15 +337,15 @@ const AdminContract = () => {
 							</div>
 							<div className='row-3'>
 							<div className='row-3-title'>
-								<h4>set X(Twitter) url</h4>
+								<h4>set X url</h4>
 							</div>
 							<div className='row-3-input'>
 								<div className='row-3-input-1'>
-									<label htmlFor='url'>Twitter URL</label>
+									<label htmlFor='url'>X URL</label>
 									<input 
 									 type='text' 
-									 id='twitter' 
-									 placeholder='Link to X/Twitter' 
+									 id='X' 
+									 placeholder='Link to X' 
 									 value={twitter} 
 									 onChange={(e) => setTwitter(e.target.value)}  />
 								</div>

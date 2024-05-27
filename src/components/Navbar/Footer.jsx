@@ -9,7 +9,7 @@ const Footer = () => {
     return (
         <FooterStyles>
             <div className="social-links">
-                <a href="https://twitter.com/gaia" target="_blank" rel="noopener noreferrer">
+                <a href="https://x.com/GaiaEcoNFT" target="_blank" rel="noopener noreferrer">
                 <FaXTwitter />
                 </a>
                 <a href="https://discord.gg/gaiaeconft" target="_blank" rel="noopener noreferrer">
