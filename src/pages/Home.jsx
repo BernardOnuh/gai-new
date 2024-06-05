@@ -24,7 +24,7 @@ const Home = () => {
 						<Link to='/nfts'>
 							<button>explore now</button>
 						</Link>
-						<Link to='/https://gaia-eco.netlify.app/'>
+						<Link to='https://gaia-eco.netlify.app/'>
 							<button>Royalties</button>
 						</Link>
 					</div>
