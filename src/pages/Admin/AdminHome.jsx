@@ -69,7 +69,7 @@ const [startDate, setStartDate] = useState(new Date());
 
   useEffect(() => {
     if (chainId === 137) {
-      setWei('75000000000000000000');
+      setWei('0');
       setTokenContract('0xC077560020d53F4BEf6C87190a988B037A991eb6')
     } else if (chainId === 25) {
       setWei('25000000000000000000');
