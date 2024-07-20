@@ -1,3 +1,4 @@
+/* eslint-disable no-mixed-spaces-and-tabs */
 import { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { data } from '../assets/inAppData/Explore.js';
