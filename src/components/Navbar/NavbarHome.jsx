@@ -38,6 +38,12 @@ const NavbarHome = () => {
 					<li>
 						<Link to='/nfts'>Projects</Link>
 					</li>
+					<li>
+						<Link to='/TraitDashboard'>Trait Dashboard</Link>
+					</li>
+					<li>
+						<Link to='/raffle'>Trait Staking</Link>
+					</li>
 				</ul>
 			)}
 		</NavbarStyles>

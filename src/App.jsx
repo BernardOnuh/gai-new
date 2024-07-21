@@ -14,6 +14,7 @@ import RafflePage from "./pages/RafflePage";
 import RaffleItemPage from "./pages/RaffleItemPage";
 import ErrorPage from "./pages/ErrorPage";
 import Footer from "./components/Navbar/Footer";
+import TraitHome from "./pages/Trait/TraitHome";
 
 
 
@@ -37,6 +38,8 @@ function App() {
 				<Route exact path='/admin/boost-nft' element={<AdminBoost />} />
 				<Route exact path='/admin/platform-admin' element={<AdminPlatform />} />
 				<Route exact path='/raffle' element={<RafflePage />} />
+				<Route exact path='/TraitDashboard' element={<TraitHome/>} />
+				<Route exact path='/TraitStaking' element={<RafflePage />} />
 
 				<Route
 					exact

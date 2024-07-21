@@ -29,3 +29,53 @@ body {
   min-height: 100vh;
   overflow-x: hidden;
 }
+/* styles.css */
+.form-container {
+  width: 500px;
+  margin: auto;
+  text-align: center;
+}
+
+.form-step {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: start;
+  width: auto;
+}
+
+.form-group {
+  margin-bottom: 20px;
+  width: 100%;
+}
+
+.form-navigation {
+  display: flex;
+  justify-content: center;
+}
+.form-navigation button {
+  padding: 20px;
+  margin: 20px;
+  border-radius: 15px !important;
+  background: blue !important;
+}
+
+.form-step input,
+				textarea {
+					display: inline-block;
+          padding: 20px;
+          width: 100%;
+					margin-bottom: 1rem;
+					color: var(--light-white);
+					outline: none;
+					background: linear-gradient(var(--pitch-black), var(--pitch-black))
+							padding-box,
+						linear-gradient(90deg, #00ff00, #0023de, #ff00dd) border-box;
+					border: 3px solid transparent;
+          border-radius: 20px;
+
+					&::placeholder {
+						letter-spacing: 0.1rem;
+					}
+				}
