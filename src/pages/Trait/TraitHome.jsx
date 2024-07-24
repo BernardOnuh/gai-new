@@ -10,6 +10,7 @@ import StakingForm from '../StakingForm';
 
 import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
+import TraitsPage from './TraitFetch';
 
 const TraitHome = () => {
   const [currentStep, setCurrentStep] = useState(1);
@@ -155,7 +156,8 @@ const TraitHome = () => {
           <form>
             <h2>Deploy NFT Staking</h2>
             {/* {renderStep()} */}
-            <StakingForm />
+            {/* <StakingForm /> */}
+            <TraitsPage />
 
           </form>
           {/* <div className='button-container'>
