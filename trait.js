@@ -24,11 +24,17 @@ async function fetchTraits(contractAddress) {
             value: attribute.value
         }));
 
+        console.log(basicDetails, traits)
+
+
         return { basicDetails, traits };
+
     } catch (err) {
         console.error(err);
         return null;
     }
 }
+
+fetchTraits("0xe28d2d8746d855251ba677a91626009cb33aa4f9")
 
 export default fetchTraits;

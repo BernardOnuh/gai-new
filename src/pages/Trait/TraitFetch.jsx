@@ -1,53 +1,60 @@
 // pages/traits.js
 import { useState } from 'react';
-// import fetchTraits from '../trait';
+// Import the fetchTraits function from the correct path
 import fetchTraits from '../../../trait';
 
 const TraitsPage = () => {
   const [contractAddress, setContractAddress] = useState('');
   const [loading, setLoading] = useState(false);
-  const [traits, setTraits] = useState(null);
+  const [nftData, setNftData] = useState(null);
 
-  const handleInputChange = (e) => {
-    setContractAddress(e.target.value);
+  // Function to fetch NFT traits
+  const handleFetchTraits = async (e) => {
+    e.preventDefault(); // Prevent page refresh
+    setLoading(true); // Start loading state
+    const data = await fetchTraits(contractAddress); // Fetch data
+    setNftData(data); // Set NFT data
+    setLoading(false); // End loading state
+    console.log(data); // Log data for debugging
   };
 
-  const handleFetchTraits = async () => {
-    setLoading(true);
-    setTraits(null);
-    const data = await fetchTraits(contractAddress);
-    setTraits(data);
-    setLoading(false);
-  };
+  // Destructure nftData for basic details and traits
+  const basicDetails = nftData ? nftData.basicDetails : null;
+  const traits = nftData ? nftData.traits : [];
 
   return (
     <div>
       <h1>NFT Traits Fetcher</h1>
-      <input
-        type="text"
-        value={contractAddress}
-        onChange={handleInputChange}
-        placeholder="Enter NFT Contract Address"
-      />
-      <button onClick={handleFetchTraits}>Fetch Traits</button>
+      {/* Form to prevent default submission behavior */}
+      <form onSubmit={handleFetchTraits}>
+        <input
+          type="text"
+          value={contractAddress}
+          onChange={(e) => setContractAddress(e.target.value)}
+          placeholder="Enter NFT Contract Address"
+        />
+        <button type="submit">Fetch Traits</button>
+      </form>
 
+      {/* Loading indicator */}
       {loading && <div>Loading...</div>}
 
-      {traits && (
+      {/* Display NFT details and traits if available */}
+      {nftData && (
         <div>
           <h2>Basic Details</h2>
-          <p>Name: {traits.basicDetails.name}</p>
-          <p>Description: {traits.basicDetails.description}</p>
-          <p>Token ID: {traits.basicDetails.tokenId}</p>
-          <p>Collection Name: {traits.basicDetails.collectionName}</p>
-          <p>Contract Address: {traits.basicDetails.contractAddress}</p>
-          <img src={traits.basicDetails.image} alt={traits.basicDetails.name} />
+          <p><strong>Name:</strong> {basicDetails.name}</p>
+          <p><strong>Description:</strong> {basicDetails.description || 'N/A'}</p>
+          <p><strong>Token ID:</strong> {basicDetails.tokenId}</p>
+          <p><strong>Collection Name:</strong> {basicDetails.collectionName}</p>
+          <p><strong>Contract Address:</strong> {basicDetails.contractAddress}</p>
+          <img src={basicDetails.image} alt={basicDetails.name} style={{ maxWidth: '300px', height: 'auto' }} />
 
           <h2>Traits</h2>
           <ul>
-            {traits.traits.map((trait, index) => (
+            {traits.map((trait, index) => (
               <li key={index}>
-                {trait.trait_type}: {trait.value}
+                <strong>{trait.trait_type}:</strong> {trait.value}
               </li>
             ))}
           </ul>
