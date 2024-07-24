@@ -35,6 +35,6 @@ async function fetchTraits(contractAddress) {
     }
 }
 
-fetchTraits("0xe28d2d8746d855251ba677a91626009cb33aa4f9")
+fetchTraits("")
 
 export default fetchTraits;

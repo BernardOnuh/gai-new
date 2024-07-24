@@ -26,6 +26,7 @@ const TraitsPage = () => {
   return (
     <div>
       <h1>NFT Traits Fetcher</h1>
+      <div className='form'>
       <input
         type="text"
         value={contractAddress}
@@ -36,17 +37,21 @@ const TraitsPage = () => {
       />
       <button onClick={handleFetchTraits}>Fetch Traits</button>
 
+      </div>
+
       {loading && <div>Loading...</div>}
 
       {nftData && (
-        <div>
+        <div className='nft-details'>
           <h2>Basic Details</h2>
           <p>Name: {basicDetails.name}</p>
           <p>Description: {basicDetails.description}</p>
           <p>Token ID: {basicDetails.tokenId}</p>
           <p>Collection Name: {basicDetails.collectionName}</p>
           <p>Contract Address: {basicDetails.contractAddress}</p>
+          <div className='nft-img'>
           <img src={basicDetails.image} alt={basicDetails.name} />
+          </div>
 
           <h2>Traits</h2>
           <ul>
