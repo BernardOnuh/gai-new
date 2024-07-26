@@ -2,11 +2,10 @@ import ExploreNftStyles from '../assets/styles/ExploreNftStyles.js';
 import NavBarExplore from '../components/Navbar/NavbarExplore.jsx';
 import { data as initialData } from '../assets/inAppData/Explore.js'; // renamed to initialData to avoid conflict
 import NftCardItem from '../components/Cards/NftCardItem.jsx';
-import axios from 'axios'
+import axios from 'axios';
 import { useState, useEffect } from 'react';
 
 const ExploreNft = () => {
-
   const [data, setData] = useState([]);
   useEffect(() => {
     const fetchData = async () => {
@@ -24,7 +23,7 @@ const ExploreNft = () => {
   console.log(data);
 
   // Example traits data for the new card
-  const traits = ["Trait 1", "Trait 2", "Trait 3"];
+  const traits = ["Earth", "Wind", "Water", "Fire", "Aethir", "1/1"]; // Updated trait names
 
   return (
     <ExploreNftStyles>

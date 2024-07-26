@@ -124,6 +124,40 @@ body {
   margin-bottom: 5rem;
   /* padding-bottom: 25rem; */
 }
+
+.traits-container {
+  display: flex;
+  flex-direction: column;
+  gap: 10px; /* Space between each trait */
+}
+
+.trait-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border: 1px solid grey;
+  padding: 10px;
+  border-radius: 20px;
+}
+
+.traits-container input[type="checkbox"] {
+  width: 20px; 
+  height: 20px; 
+  border-radius: 50%; 
+  border: 2px solid #ccc;
+  appearance: none;
+  cursor: pointer;
+  margin-left: 10px;
+}
+
+.traits-container input[type="checkbox"]:checked {
+  background-color: #007BFF; 
+  border: 2px solid #007BFF; 
+} 
+.traits-container .trait-word {
+  font-size: 12px;
+}
+
 .kcAsE .explore-container .explore-cardlist {
   margin-bottom: 15rem !important;
 }
