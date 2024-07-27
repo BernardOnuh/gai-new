@@ -10,8 +10,8 @@ const NftCardItem = ({ dataItem, trait }) => {
 			<h2>{name}</h2>
 			<p>Trait: {trait}</p>
 			<div className='stake_btn'>
-			<button>Stake</button>
-			<button>Unstake</button>
+			{/* <button>Stake</button>
+			<button>Unstake</button> */}
 			</div>
 			<Link to={`/nfts/card/${name}/${stakingAddress}/${chain}`}>See details</Link>
 			</div>
