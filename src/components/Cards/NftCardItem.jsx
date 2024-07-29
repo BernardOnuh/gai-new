@@ -1,8 +1,25 @@
 import { Link } from 'react-router-dom';
 import NftCardItemStyles from '../../assets/styles/NftCardItemStyles';
+// import { useWriteContract } from 'wagmi';
+// import { NFTAbi, StakingAbi } from '../../../contract/contract';
+// import { writeContract } from 'viem/actions';
+
 
 const NftCardItem = ({ dataItem, trait }) => {
+	// const {data: hash, useWriteContract} = useWriteContract()
 	const { image, headerTextOne, name, stakingAddress, chain } = dataItem;
+
+	// const approveNFT = writeContract({
+	// 	address: '0xD96E1816569a881459E8354A380415908C6A7F78',
+	// 	NFTAbi,
+	// 	functionName: 'approve',
+	// 	args: [ stakingCA, tokenID ]
+	// })
+
+	// const stakeNFT = writeContract({
+
+	// })
+	
 	return (
 		<NftCardItemStyles>
 			<div className='nft_card'>
@@ -10,8 +27,8 @@ const NftCardItem = ({ dataItem, trait }) => {
 			<h2>{name}</h2>
 			<p>Trait: {trait}</p>
 			<div className='stake_btn'>
-			{/* <button>Stake</button>
-			<button>Unstake</button> */}
+			<button>Stake</button>
+			<button>Unstake</button>
 			</div>
 			<Link to={`/nfts/card/${name}/${stakingAddress}/${chain}`}>See details</Link>
 			</div>

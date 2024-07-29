@@ -1,3 +1,4 @@
+/* eslint-disable no-mixed-spaces-and-tabs */
 import ExploreNftStyles from '../assets/styles/ExploreNftStyles.js';
 import NavBarExplore from '../components/Navbar/NavbarExplore.jsx';
 import axios from 'axios';
@@ -58,3 +59,7 @@ const ExploreNft = () => {
 };
 
 export default ExploreNft;
+
+
+
+

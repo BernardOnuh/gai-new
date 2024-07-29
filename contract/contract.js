@@ -3376,3 +3376,4 @@ export const NFTAbi = [
 		"type": "function"
 	}
 ]
+
