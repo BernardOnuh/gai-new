@@ -1,7 +1,7 @@
 // pages/traits.js
 import { useState } from 'react';
 // import fetchTraits from '../trait';
-import fetchTraits from '../../../trait';
+// import fetchTraits from '../../api/fetchNFT';
 
 const TraitsPage = () => {
   const [contractAddress, setContractAddress] = useState('');
@@ -57,7 +57,7 @@ const TraitsPage = () => {
           <ul>
             {traits.map((trait, index) => (
               <li key={index}>
-                {trait.trait_type}: {trait.value}
+                {/* {trait.trait_type}: {trait.value} */}
               </li>
             ))}
           </ul>

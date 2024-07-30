@@ -1,7 +1,6 @@
 import { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import fetchTraits from '../../trait';
-
+// import { nftFetch } from '../api/fetchNFT';
 const StakingForm = () => {
   const [step, setStep] = useState(0);
   const [formData, setFormData] = useState({
@@ -38,7 +37,7 @@ const StakingForm = () => {
     e.preventDefault();  // Prevent the form from submitting and reloading the page
     setLoading(true);
     setTraits(null);
-    const data = await fetchTraits(formData.contractAddress);
+    const data = await nftFetch(formData.contractAddress);
     setTraits(data);
     setLoading(false);
   };

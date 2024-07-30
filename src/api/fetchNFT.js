@@ -1,39 +1,40 @@
-/* eslint-disable no-undef */
+import axios from 'axios';
 import opensea from '@api/opensea';
 import dotenv from 'dotenv';
-import axios from 'axios';
 
 dotenv.config();
 
-const userAddress = '0x70B0Ab8B3426D596C3231b33b9C3Cca80F9886F8';
-
-export const nftFetch = async (userAddress) => {
+// Function to fetch NFTs using the OpenSea API
+const nftFetch = async (userAddress) => {
     try {
-        // Authenticate using the OpenSea API key from environment variables
-        await opensea.auth(process.env.OPENSEA_API_KEY);
-
-        // Set the OpenSea API server
+        // OpenSea API endpoint
+        await opensea.auth('118c9d2f3e35451db2ae43f8590cc266');
         await opensea.server('https://api.opensea.io');
 
-        // Fetch NFTs for the user address
+        // Extract and log the NFT data
         const response = await opensea.list_nfts_by_account({
             collection: 'polyfactions',
             chain: 'matic',
             address: userAddress
         });
 
-        const data = response.data; // Extract the data from the response
+        const data = response.data;
 
-        // Iterate over NFTs and log relevant information
+        console.log(response)
+
+        if (!data || !data.nfts) {
+            console.error('No NFTs data found in the response.');
+            return;
+        }
+
         const nftData = data.nfts.map(nft => ({
             name: nft.name,
             tokenID: nft.identifier,
             image: nft.display_image_url
         }));
-
         console.log('NFT Data:', nftData);
 
-        // Example: Let the user select an NFT (this should be done through some UI interaction)
+        // Example: Let the user select an NFT
         const selectedTokenID = promptUserForNFTSelection(nftData);
 
         if (selectedTokenID) {
@@ -43,12 +44,11 @@ export const nftFetch = async (userAddress) => {
             console.log('No NFT selected.');
         }
     } catch (err) {
-        console.error('Error fetching NFTs:', err);
+        console.error('Error fetching NFTs:', err.response?.data || err.message);
     }
 };
 
 function promptUserForNFTSelection(nftData) {
-    // For demonstration purposes, let's log the available NFTs and return one
     console.log('Select an NFT by its index:');
 
     nftData.forEach((nft, index) => {
@@ -70,7 +70,7 @@ function promptUserForNFTSelection(nftData) {
 async function fetchTraits(contractAddress, tokenID) {
     const options = {
         method: 'GET',
-        headers: { accept: 'application/json' }
+        headers: { accept: 'application/json' },
     };
 
     try {
@@ -80,19 +80,21 @@ async function fetchTraits(contractAddress, tokenID) {
         );
         const data = response.data;
 
-        const traits = data.raw.metadata.attributes.map(attribute => ({
+        const traits = data.raw.metadata.attributes.map((attribute) => ({
             trait_type: attribute.trait_type,
-            value: attribute.value
+            value: attribute.value,
         }));
 
         console.log('Traits:', traits);
 
         return { traits };
     } catch (err) {
-        console.error('Error fetching traits:', err);
+        console.error('Error fetching traits:', err.response?.data || err.message);
         return null;
     }
 }
 
 // Execute the NFT fetch
-nftFetch(userAddress);
+export default nftFetch;
+
+// nftFetch('0xb9c627A94EDF9f55e5F6917B6b0696e55660C7Ed');
