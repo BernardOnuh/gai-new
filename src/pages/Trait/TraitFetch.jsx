@@ -1,7 +1,7 @@
 // pages/traits.js
 import { useState } from 'react';
-// import fetchTraits from '../trait';
-// import fetchTraits from '../../api/fetchNFT';
+// import nftF from '../trait';
+// import nftFetch from '../../api/fetchNFT';
 
 const TraitsPage = () => {
   const [contractAddress, setContractAddress] = useState('');
@@ -10,10 +10,10 @@ const TraitsPage = () => {
 
   
 
-  const handleFetchTraits = async (e) => {
+  const handlenftF = async (e) => {
     e.preventDefault()
     setLoading(true);
-    const data = await fetchTraits(contractAddress);
+    const data = await nftFetch(contractAddress);
     setNftData(data);
     setLoading(false);
     console.log(data)
@@ -35,7 +35,7 @@ const TraitsPage = () => {
         }
         placeholder="Enter NFT Contract Address"
       />
-      <button onClick={handleFetchTraits}>Fetch Traits</button>
+      <button onClick={handlenftF}>Fetch Traits</button>
 
       </div>
 
