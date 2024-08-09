@@ -1,0 +1,12 @@
+.details {
+  display: grid;
+  width: 100%;
+  grid-template-columns: repeat(6, 1fr);
+  grid-template-rows: repeat(3, 3fr);
+  gap: 5px;
+}
+
+.display-img {
+  width: 150px;
+  height: 150px;
+}
