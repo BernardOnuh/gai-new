@@ -4,23 +4,31 @@ import NavBarExplore from '../components/Navbar/NavbarExplore.jsx';
 import axios from 'axios';
 import { useState, useEffect } from 'react';
 import NftCardItem from '../components/Cards/NftCardItem.jsx';
+import NewNftCardItem from '../components/NewCards/NewNftCardItem.jsx';
+import nftData from '../components/NewCards/nftData.json';
 
 const ExploreNft = () => {
 	const [data, setData] = useState([]);
-	const traits = ["earth", "aethir", "1/1"]; // Define your traits
+	const [newdata, setNewData] = useState([]);
 
 	useEffect(() => {
-	  const fetchData = async () => {
-		try {
-		  const response = await axios.get('https://gaia-database.onrender.com/api/gaia');
-		  setData(response.data);
-		  console.log(response.data);
-		} catch (error) {
-		  console.error('Error fetching data:', error);
-		}
-	  };
+		const fetchData = async () => {
+			try {
+				const response = await axios.get('https://gaia-database.onrender.com/api/gaia');
+				setData(response.data);
+				console.log(response.data);
+			} catch (error) {
+				console.error('Error fetching data:', error);
+			}
+		};
 
-	  fetchData();
+		fetchData();
+	}, []);
+
+	useEffect(() => {
+		// Set the data directly from the JSON file
+		setNewData(nftData);
+		console.log(nftData);
 	}, []);
 
 	return (
@@ -45,12 +53,14 @@ const ExploreNft = () => {
 						</div>
 					</div>
 				</div>
-
+				<div className='explore-cardlist'>
+					{newdata.map((item, index) => (
+						<NewNftCardItem key={index} dataItem={item} />
+					))}
+				</div>
 				<div className='explore-cardlist'>
 					{data.map((item, index) => (
-						traits.map((trait, traitIndex) => (
-							<NftCardItem key={`${index}-${traitIndex}`} dataItem={item} trait={trait} />
-						))
+						<NftCardItem key={index} dataItem={item} />
 					))}
 				</div>
 			</div>
@@ -59,7 +69,3 @@ const ExploreNft = () => {
 };
 
 export default ExploreNft;
-
-
-
-

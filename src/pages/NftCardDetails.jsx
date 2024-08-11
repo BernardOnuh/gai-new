@@ -17,6 +17,7 @@ import { Link } from "react-router-dom";
 import axios from "axios";
 import Modal from "../components/Modals/Modal.jsx";
 import NftCardModalDetails from "../components/Modals/NftCardModalDetails.jsx";
+import nftData from '../components/NewCards/nftData.json';
 
 const NftCardDetails = ({ extractedData }) => {
   const account = useAccount();
@@ -31,6 +32,15 @@ const NftCardDetails = ({ extractedData }) => {
   console.log("walletId:", stakingAddress);
   console.log("chainId:", chain);
   const apiKey = "demo";
+  const nft = nftData.find((item) => item.name === name);
+
+  useEffect(() => {
+    if (nft) {
+      // If a matching NFT is found, set it to the state
+      setNftItemData(nft);
+    }
+  }, [name, nft]);
+
 
   let baseURL;
   if (chainId === 11155111) {
@@ -167,7 +177,7 @@ const NftCardDetails = ({ extractedData }) => {
 
         <div className="card-container">
           <div className="card-container-image">
-            <img src={data.image} alt={name} />
+            <img src={nftItemData.image} alt={name} />
             <h2>{name}</h2>
           </div>
           <div className="card-container-texts">
