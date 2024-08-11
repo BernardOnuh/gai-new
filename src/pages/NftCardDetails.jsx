@@ -189,7 +189,7 @@ const NftCardDetails = ({ extractedData }) => {
             <div className="row-2">
               <h5>Earn {name} from the Gaia Ecosystem</h5>
               <h2>Description</h2>
-              <p>{description.data}</p>
+              <h5>{nftItemData.description}</h5>
               <div className="input-box">
                 <input type="text" />
                 <input type="text" />
