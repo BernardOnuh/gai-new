@@ -6,7 +6,7 @@ import { BrowserRouter as Router } from 'react-router-dom'
 import '@rainbow-me/rainbowkit/styles.css';
 import { getDefaultConfig, RainbowKitProvider } from '@rainbow-me/rainbowkit';
 import { WagmiProvider } from 'wagmi';
-import { arbitrum, base, mainnet, optimism, polygon, zora,cronos,polygonMumbai,sepolia} from 'wagmi/chains';
+import { arbitrum, base, mainnet, optimism, polygon, zora,cronos,polygonMumbai,sepolia, baseSepolia} from 'wagmi/chains';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 
 
@@ -16,7 +16,7 @@ import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 const config = getDefaultConfig({
 	appName: 'RainbowKit demo',
 	projectId: 'YOUR_PROJECT_ID',
-	chains: [ polygon, cronos,polygonMumbai,sepolia],
+	chains: [ polygon, cronos,polygonMumbai,sepolia, baseSepolia],
   autoConnect:false,
   });
   

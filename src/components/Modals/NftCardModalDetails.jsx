@@ -1,20 +1,23 @@
 import React, { useState } from "react";
 import "./details.css";
-import axios from "axios"; // Ensure axios is imported
+import axios from "axios";
+import { useWriteContract } from 'wagmi';
+import { NFTAbi, StakingAbi } from "../../../contract/contract";
+import PropTypes from 'prop-types';
 
 function NftCardModalDetails({ extractedData, extractedTrait }) {
   const targetContract = "0xd96e1816569a881459e8354a380415908c6a7f78";
   const alchemy_key = "aleYeT5BI1MFFXJw37SiYu_FdeYMaMqb";
 
-  const filteredData =
-    extractedData?.filter((el) => el.contract === targetContract) || [];
+  const filteredData = extractedData?.filter((el) => el.contract === targetContract) || [];
 
   const [selectedNft, setSelectedNft] = useState(null);
   const [traits, setTraits] = useState([]);
+  const { data: hash, writeContract } = useWriteContract();
 
   const handleNftClick = async (nft) => {
     setSelectedNft(nft);
-    const traitsData = await fetchTraits(nft.contract, nft.tokenid); // Use nft.tokenid instead of hardcoded number
+    const traitsData = await fetchTraits(nft.contract, nft.tokenid);
     setTraits(traitsData?.traits || []);
   };
 
@@ -48,6 +51,36 @@ function NftCardModalDetails({ extractedData, extractedTrait }) {
     } catch (err) {
       console.error("Error fetching traits:", err.response?.data || err.message);
       return null;
+    }
+  };
+
+  const approveNFT = async () => {
+    try {
+      console.log("Starting approve process");
+      await writeContract({
+        address: '0x739db96598ce5a8970371Fe1Df5e4c4e423a2A1E',
+        abi: NFTAbi,
+        functionName: 'approve',
+        args: ['0x3eBE1e479652BDb04F0C95be139e1018469Dbd9B', 2],
+      });
+      console.log("NFT Approved!");
+    } catch (error) {
+      console.error("Error approving NFT:", error);
+    }
+  };
+
+  const stakeNFT = async () => {
+    try {
+      console.log("Starting stake process");
+       writeContract({
+        address: '0x3eBE1e479652BDb04F0C95be139e1018469Dbd9B',
+        abi: StakingAbi,
+        functionName: 'stake',
+        args: [2],
+      });
+      console.log("NFT staked successfully!");
+    } catch (error) {
+      console.error("Error staking NFT:", error);
     }
   };
 
@@ -118,7 +151,14 @@ function NftCardModalDetails({ extractedData, extractedTrait }) {
                   trait.trait_type === "Element" &&
                   trait.value === extractedTrait
               ) ? (
-                <button className="stake-button">Stake this NFT</button>
+                <>
+                  <button className="approve-button" onClick={approveNFT}>
+                    Approve this NFT
+                  </button>
+                  <button className="stake-button" onClick={stakeNFT}>
+                    Stake this NFT
+                  </button>
+                </>
               ) : (
                 <p>
                   You can't stake this NFT here.{" "}
@@ -134,5 +174,16 @@ function NftCardModalDetails({ extractedData, extractedTrait }) {
     </div>
   );
 }
+
+NftCardModalDetails.propTypes = {
+  extractedData: PropTypes.arrayOf(
+    PropTypes.shape({
+      contract: PropTypes.string.isRequired,
+      tokenid: PropTypes.string.isRequired,
+      display_image_url: PropTypes.string.isRequired,
+    })
+  ),
+  extractedTrait: PropTypes.string.isRequired,
+};
 
 export default NftCardModalDetails;
