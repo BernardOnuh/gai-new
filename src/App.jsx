@@ -24,11 +24,12 @@ function App() {
   useEffect(() => {
     const fetchData = async () => {
       const result = await fetchNfts(
-        "0xE9C8475C97b6C131162416e1183E11a52a2344ee"
+        "0x5b92247bbF1D73Fb727C488dA9fD2e41DF11d4a3"
       );
       console.log(extractedData);
       if (result) {
         setExtractedData(result.extractedData);
+        console.log("Extracts on",result.extractedData);
       }
     };
 
