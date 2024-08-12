@@ -233,7 +233,7 @@ const NftCardDetails = ({ extractedData }) => {
               )}
               <Modal.Window name="stake">
                 <div>
-                  <NftCardModalDetails extractedData={extractedData} />
+                  <NftCardModalDetails extractedData={extractedData} extractedTrait={nftItemData.traits} />
                 </div>
               </Modal.Window>
               <Modal.Open opens="stake">

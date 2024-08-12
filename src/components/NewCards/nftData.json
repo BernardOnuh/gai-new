@@ -4,7 +4,7 @@
       "name": "Poly Factions-Earth",
       "description": "This is the Staking Pool for Poly Faction with Earth traits",
       "image": "https://i.seadn.io/s/raw/files/d0296fcceecebb1d8783d5e0060fa6e3.png?auto=format&dpr=1&w=384",
-      "traits": ["earth"],
+      "traits": "Earth",
       "address":"0x3....."
     },
     {
@@ -12,7 +12,7 @@
         "name": "Poly Factions-Wind",
         "description": "This is the Staking Pool for Poly Faction with wind traits",
         "image": "https://i.seadn.io/s/raw/files/a47348ebd368734cebc30888515a2583.png?auto=format&dpr=1&w=384",
-        "traits": ["wind"],
+        "traits": "Wind",
         "address":"0x4....."
       },
       {
@@ -20,7 +20,7 @@
         "name": "Poly Factions-Water",
         "description": "This is the Staking Pool for Poly Faction with Water traits",
         "image": "https://i.seadn.io/s/raw/files/8b02277e1f2bd8d46c65024969914d07.png?auto=format&dpr=1&w=384",
-        "traits": ["Water"],
+        "traits": "Water",
         "address":"0x5....."
       },
       {
@@ -28,7 +28,7 @@
         "name": "Poly Factions-Fire",
         "description": "This is the Staking Pool for Poly Faction with Fire traits",
         "image": "https://i.seadn.io/s/raw/files/fee347636db9bb8e29b1db29fb2807cf.png?auto=format&dpr=1&w=384",
-        "traits": ["Fire"],
+        "traits": "Fire",
         "address":"0x6....."
       },
       {
@@ -36,16 +36,9 @@
         "name": "Poly Factions-Aether",
         "description": "This is the Staking Pool for Poly Faction with Aether traits",
         "image": "https://i.seadn.io/s/raw/files/32af53fb9ddbfe25af36d278eb03ba51.png?auto=format&dpr=1&w=384",
-        "traits": ["Aether"],
+        "traits": "Aether",
         "address":"0x7....."
-      },
-      {
-        "id": 1,
-        "name": "Poly Factions-[1/1]",
-        "description": "This is the Staking Pool for Poly Faction with [1/1] traits",
-        "image": "https://i.seadn.io/s/raw/files/73f5093ac382a5ad451fa99880bc181c.png?auto=format&dpr=1&w=384",
-        "traits": ["1/1"],
-        "address":"0x8....."
       }
+
   ]
   

@@ -1,12 +1,131 @@
 .details {
+  padding: 20px;
+}
+
+.nft-grid {
   display: grid;
-  width: 100%;
-  grid-template-columns: repeat(6, 1fr);
-  grid-template-rows: repeat(3, 3fr);
-  gap: 5px;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 20px;
+}
+
+.nft-card {
+  border: 1px solid #ddd;
+  padding: 10px;
+  border-radius: 8px;
+  text-align: center;
+  cursor: pointer;
+  transition: transform 0.2s;
+}
+
+.nft-card:hover {
+  transform: scale(1.05);
 }
 
 .display-img {
-  width: 150px;
-  height: 150px;
+  width: 100%;
+  height: auto;
+  margin-top: 10px;
+}
+
+.no-nft-message {
+  text-align: center;
+  color: #333;
+  margin-top: 20px;
+  font-size: 1.2em;
+}
+
+/* Modal styles */
+.modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.7);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+}
+
+.modal-content {
+  background-color: #fff;
+  padding: 30px;
+  border-radius: 12px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  text-align: center;
+  position: relative;
+  max-width: 600px;
+  width: 90%;
+}
+
+.close-button {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  font-size: 28px;
+  cursor: pointer;
+  color: #555;
+  transition: color 0.3s;
+}
+
+.close-button:hover {
+  color: #000;
+}
+
+.modal-content h1 {
+  margin-bottom: 20px;
+  font-size: 24px;
+  color: #333;
+  font-weight: bold;
+}
+
+.modal-content .display-img {
+  width: 40%;
+  height: auto;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s;
+}
+
+.modal-content .display-img:hover {
+  transform: scale(1.05);
+}
+
+@media (min-width: 768px) {
+  .modal-content {
+    max-width: 1000px;
+  }
+}
+
+.stake-button {
+  background-color: #000000; /* Green */
+  border: none;
+  color: white;
+  padding: 10px 20px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  margin: 4px 2px;
+  cursor: pointer;
+  border-radius: 8px;
+  transition: background-color 0.3s ease;
+}
+
+.stake-button:hover {
+  background-color: #000000;
+}
+
+/* Responsive styles */
+@media (min-width: 768px) {
+  .nft-grid {
+    grid-template-columns: repeat(6, 1fr);
+  }
+}
+
+@media (min-width: 1024px) {
+  .nft-grid {
+    grid-template-columns: repeat(7, 1fr);
+  }
 }
