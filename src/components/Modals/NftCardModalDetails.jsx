@@ -122,8 +122,8 @@ function NftCardModalDetails({ extractedData, extractedTrait }) {
               ) : (
                 <p>
                   You can't stake this NFT here.{" "}
-                  <a href="/nfts">
-                    Check {traits.find(trait => trait.trait_type === "Element")?.value || "trait type"} Here to Stake this NFT
+                  <a href="/">
+                    Check {traits.find(trait => trait.trait_type === "Element")?.value || "trait type"} Here on the Explore Page
                   </a>
                 </p>
               )}
