@@ -1,19 +1,23 @@
 import React, { useState } from "react";
 import "./details.css";
 import axios from "axios";
-import { useWriteContract } from 'wagmi';
+import { useWriteContract } from "wagmi";
 import { NFTAbi, StakingAbi } from "../../../contract/contract";
-import PropTypes from 'prop-types';
+import PropTypes from "prop-types";
 
 function NftCardModalDetails({ extractedData, extractedTrait }) {
   const targetContract = "0xd96e1816569a881459e8354a380415908c6a7f78";
   const alchemy_key = "aleYeT5BI1MFFXJw37SiYu_FdeYMaMqb";
 
-  const filteredData = extractedData?.filter((el) => el.contract === targetContract) || [];
+  const filteredData =
+    extractedData?.filter((el) => el.contract === targetContract) || [];
 
   const [selectedNft, setSelectedNft] = useState(null);
   const [traits, setTraits] = useState([]);
   const { data: hash, writeContract } = useWriteContract();
+  const [loadingApprove, setLoadingApprove] = useState(false);
+  const [loadingStake, setLoadingStake] = useState(false);
+  const [approved, setApproved] = useState(false);
 
   const handleNftClick = async (nft) => {
     setSelectedNft(nft);
@@ -24,6 +28,7 @@ function NftCardModalDetails({ extractedData, extractedTrait }) {
   const closeModal = () => {
     setSelectedNft(null);
     setTraits([]);
+    setApproved(false); // Reset approved state on modal close
   };
 
   const fetchTraits = async (contractAddress, tokenID) => {
@@ -57,30 +62,41 @@ function NftCardModalDetails({ extractedData, extractedTrait }) {
   const approveNFT = async () => {
     try {
       console.log("Starting approve process");
+      setLoadingApprove(true);
       await writeContract({
-        address: '0x739db96598ce5a8970371Fe1Df5e4c4e423a2A1E',
+        address: "0x739db96598ce5a8970371Fe1Df5e4c4e423a2A1E",
         abi: NFTAbi,
-        functionName: 'approve',
-        args: ['0x3eBE1e479652BDb04F0C95be139e1018469Dbd9B', 2],
+        functionName: "approve",
+        args: ["0x3eBE1e479652BDb04F0C95be139e1018469Dbd9B", 3],
       });
       console.log("NFT Approved!");
+      // Set a timer to simulate a 10-second delay before showing the "Stake" button
+      setTimeout(() => {
+        setApproved(true);
+        setLoadingApprove(false);
+      }, 10000);
     } catch (error) {
       console.error("Error approving NFT:", error);
+      setLoadingApprove(false);
     }
   };
 
   const stakeNFT = async () => {
     try {
       console.log("Starting stake process");
-       writeContract({
-        address: '0x3eBE1e479652BDb04F0C95be139e1018469Dbd9B',
+      setLoadingStake(true);
+      await writeContract({
+        address: "0x3eBE1e479652BDb04F0C95be139e1018469Dbd9B",
         abi: StakingAbi,
-        functionName: 'stake',
-        args: [2],
+        functionName: "stake",
+        args: [[3]],
       });
       console.log("NFT staked successfully!");
+      // After staking, you can hide the stake button or perform any other action
     } catch (error) {
       console.error("Error staking NFT:", error);
+    } finally {
+      setLoadingStake(false);
     }
   };
 
@@ -88,7 +104,10 @@ function NftCardModalDetails({ extractedData, extractedTrait }) {
     <div className="details">
       {extractedData?.length === 0 ? (
         <div className="no-nft-message">
-          <p>No data available. You don't currently have this NFT. You can buy the NFT here.</p>
+          <p>
+            No data available. You don't currently have this NFT. You can buy
+            the NFT here.
+          </p>
           {/* Add a link or button to the NFT marketplace if needed */}
         </div>
       ) : filteredData.length > 0 ? (
@@ -152,18 +171,41 @@ function NftCardModalDetails({ extractedData, extractedTrait }) {
                   trait.value === extractedTrait
               ) ? (
                 <>
-                  <button className="approve-button" onClick={approveNFT}>
-                    Approve this NFT
-                  </button>
-                  <button className="stake-button" onClick={stakeNFT}>
-                    Stake this NFT
-                  </button>
+                  {!approved ? (
+                    <button
+                      className="approve-button"
+                      onClick={approveNFT}
+                      disabled={loadingApprove}
+                    >
+                      {loadingApprove ? (
+                        <div className="loader"></div>
+                      ) : (
+                        "Approve this NFT"
+                      )}
+                    </button>
+                  ) : (
+                    <button
+                      className="stake-button"
+                      onClick={stakeNFT}
+                      disabled={loadingStake}
+                    >
+                      {loadingStake ? (
+                        <div className="loader"></div>
+                      ) : (
+                        "Stake this NFT"
+                      )}
+                    </button>
+                  )}
                 </>
               ) : (
                 <p>
                   You can't stake this NFT here.{" "}
                   <a href="/">
-                    Check {traits.find(trait => trait.trait_type === "Element")?.value || "trait type"} Here on the Explore Page
+                    Check{" "}
+                    {traits.find(
+                      (trait) => trait.trait_type === "Element"
+                    )?.value || "trait type"}{" "}
+                    Here on the Explore Page
                   </a>
                 </p>
               )}

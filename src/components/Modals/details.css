@@ -17,6 +17,22 @@
   transition: transform 0.2s;
 }
 
+.loader {
+  border: 4px solid #f3f3f3; /* Light grey */
+  border-top: 4px solid #3498db; /* Blue */
+  border-radius: 50%;
+  width: 20px;
+  height: 20px;
+  animation: spin 1s linear infinite;
+  display: inline-block;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+
 .nft-card:hover {
   transform: scale(1.05);
 }
@@ -117,6 +133,24 @@
   background-color: #000000;
 }
 
+.approve-button {
+  background-color: #7c12df; /* Green */
+  border: none;
+  color: white;
+  padding: 10px 20px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  margin: 4px 2px;
+  cursor: pointer;
+  border-radius: 8px;
+  transition: background-color 0.3s ease;
+}
+
+.approve-button:hover {
+  background-color: #321136;
+}
 /* Responsive styles */
 @media (min-width: 768px) {
   .nft-grid {
