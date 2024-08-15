@@ -5,7 +5,8 @@
       "description": "This is the Staking Pool for Poly Faction with Earth traits",
       "image": "https://i.seadn.io/s/raw/files/d0296fcceecebb1d8783d5e0060fa6e3.png?auto=format&dpr=1&w=384",
       "traits": "Earth",
-      "address":"0x3....."
+      "stakingAddress":"0xdad98FD25e3AC2B31aCf83c57DC9B3EeF868D066",
+      "chain":137
     },
     {
         "id": 1,
