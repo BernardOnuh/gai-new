@@ -1,5 +1,6 @@
 /* eslint-disable no-mixed-spaces-and-tabs */
 import { useEffect, useState } from "react";
+import { Button, TextField, Box } from "@mui/material";
 import { useParams } from "react-router-dom";
 import { data } from "../assets/inAppData/Explore.js";
 import NftCardDetailsStyles from "../assets/styles/NftCardDetailsStyles.js";
@@ -54,6 +55,9 @@ const NftCardDetails = ({ extractedData }) => {
     return null; // or provide a default URL
   }
 
+
+  
+
   const ownerAddr = [account.address];
   const pageSize = 2;
 
@@ -74,6 +78,8 @@ const NftCardDetails = ({ extractedData }) => {
     setInputValue(event.target.value);
   };
   const chainIdMatch = parseInt(chain) === chainId;
+  const chainName = chainId === 11155111 ? "Sepolia" : chainId === 137 ? "Polygon" : "Unknown Chain";
+
   const result = useReadContract({
     abi: StakingAbi,
     address: stakingAddress,
@@ -187,14 +193,11 @@ const NftCardDetails = ({ extractedData }) => {
             </div>
 
             <div className="row-2">
-              <h5>Earn {name} from the Gaia Ecosystem</h5>
-              <h2>Description</h2>
-              <h5>{nftItemData.description}</h5>
-              <div className="input-box">
-                <input type="text" />
-                <input type="text" />
-                <input type="text" />
-              </div>
+              
+              <h5>Description</h5>
+              <h2>Earn {name} from the Gaia Ecosystem</h2>
+              <h2>{nftItemData.description}</h2>
+              
             </div>
 
             <div className="row-3">
@@ -215,45 +218,73 @@ const NftCardDetails = ({ extractedData }) => {
               )}
             </div>
 
-            <div className="row-5">
+            {/*<div className="row-5">
               <p className="para-one">37d 14h 36m 3s {endDate.data}</p>
-            </div>
+            </div>*/}
 
-            <div className="centered-buttons">
-              {!chainIdMatch ? (
-                <p>Please switch to the correct blockchain.</p>
-              ) : (
-                <input
-                  type="text"
-                  placeholder="Enter value"
-                  value={inputValue}
-                  className="rounded-button"
-                  onChange={handleInputChange}
-                />
-              )}
-              <Modal.Window name="stake">
-                <div>
-                  <NftCardModalDetails extractedData={extractedData} extractedTrait={nftItemData.traits} />
-                </div>
-              </Modal.Window>
-              <Modal.Open opens="stake">
-                <button
-                  className="rounded-button"
-                  //onClick={() => stake(inputValue)}
-                  // disabled={StakingContractLoad} // Disable the button while loading
+                <div
+                  style={{
+                    display: 'flex',
+                    justifyContent: 'center',
+                    alignItems: 'center',
+                    gap: '16px',
+                  }}
                 >
-                  Stake
-                  {/*{StakingContractLoad ? 'Staking...' : 'Stake'}*/}
-                </button>
-              </Modal.Open>
-              <button
-                className="rounded-button"
-                //onClick={() => unstake(inputValue)}
-                // disabled={unStakingContractLoad} // Disable the button while loading
-              >
-                Unstake
-                {/*{unStakingContractLoad ? 'Unstaking...' : 'Unstake'}*/}
-              </button>
+              {!chainIdMatch ? (
+                <h2 style={{ color: 'red' }}>
+                Please connect to {chain === 137 ? "Polygon" : chain === 11155111 ? "Sepolia" : "the correct blockchain"}.
+                </h2>
+              ) : (
+                <Box sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 2 }}>
+                  <TextField
+                    type="text"
+                    placeholder="Enter value"
+                    value={inputValue}
+                    onChange={handleInputChange}
+                    sx={{ mb: 2 }}
+                    variant="outlined"
+                  />
+                  <Box sx={{ display: 'flex', justifyContent: 'center', gap: 2 }}>
+                    <Modal.Window name="stake">
+                      <div>
+                        <NftCardModalDetails extractedData={extractedData} extractedTrait={nftItemData.traits} />
+                      </div>
+                    </Modal.Window>
+                    <Modal.Open opens="stake">
+                      <Button
+                        variant="contained"
+                        color="primary"
+                        size="large"
+                        sx={{
+                          borderRadius: 2,
+                          backgroundColor: 'purple', // Use your theme colors
+                          '&:hover': { backgroundColor: 'darkviolet' },
+                          minWidth: 150,
+                        }}
+                        // onClick={() => stake(inputValue)}
+                        // disabled={StakingContractLoad}
+                      >
+                        Stake
+                      </Button>
+                    </Modal.Open>
+                    <Button
+                      variant="contained"
+                      color="secondary"
+                      size="large"
+                      sx={{
+                        borderRadius: 2,
+                        backgroundColor: 'green', // Use your theme colors
+                        '&:hover': { backgroundColor: 'hotpink' },
+                        minWidth: 150,
+                      }}
+                      // onClick={() => unstake(inputValue)}
+                      // disabled={unStakingContractLoad}
+                    >
+                      Unstake
+                    </Button>
+                  </Box>
+                </Box>
+              )}
             </div>
           </div>
         </div>
