@@ -236,14 +236,6 @@ const NftCardDetails = ({ extractedData }) => {
                 </h2>
               ) : (
                 <Box sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 2 }}>
-                  <TextField
-                    type="text"
-                    placeholder="Enter value"
-                    value={inputValue}
-                    onChange={handleInputChange}
-                    sx={{ mb: 2 }}
-                    variant="outlined"
-                  />
                   <Box sx={{ display: 'flex', justifyContent: 'center', gap: 2 }}>
                     <Modal.Window name="stake">
                       <div>

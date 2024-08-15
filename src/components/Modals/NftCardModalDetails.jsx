@@ -4,7 +4,7 @@ import axios from "axios";
 import { useWriteContract } from "wagmi";
 import { NFTAbi, StakingAbi } from "../../../contract/contract";
 import PropTypes from "prop-types";
-
+import { useParams } from "react-router-dom";
 function NftCardModalDetails({ extractedData, extractedTrait }) {
   const targetContract = "0xd96e1816569a881459e8354a380415908c6a7f78";
   const alchemy_key = "aleYeT5BI1MFFXJw37SiYu_FdeYMaMqb";
@@ -18,13 +18,14 @@ function NftCardModalDetails({ extractedData, extractedTrait }) {
   const [loadingApprove, setLoadingApprove] = useState(false);
   const [loadingStake, setLoadingStake] = useState(false);
   const [approved, setApproved] = useState(false);
-
+  const { name, stakingAddress, chain } = useParams();
   const handleNftClick = async (nft) => {
     setSelectedNft(nft);
     const traitsData = await fetchTraits(nft.contract, nft.tokenid);
     setTraits(traitsData?.traits || []);
   };
 
+  
   const closeModal = () => {
     setSelectedNft(null);
     setTraits([]);
@@ -64,10 +65,10 @@ function NftCardModalDetails({ extractedData, extractedTrait }) {
       console.log("Starting approve process");
       setLoadingApprove(true);
       await writeContract({
-        address: "0x739db96598ce5a8970371Fe1Df5e4c4e423a2A1E",
+        address: targetContract,
         abi: NFTAbi,
         functionName: "approve",
-        args: ["0x3eBE1e479652BDb04F0C95be139e1018469Dbd9B", 3],
+        args: [stakingAddress, selectedNft.tokenid],
       });
       console.log("NFT Approved!");
       // Set a timer to simulate a 10-second delay before showing the "Stake" button
@@ -86,10 +87,10 @@ function NftCardModalDetails({ extractedData, extractedTrait }) {
       console.log("Starting stake process");
       setLoadingStake(true);
       await writeContract({
-        address: "0x3eBE1e479652BDb04F0C95be139e1018469Dbd9B",
+        address: stakingAddress,
         abi: StakingAbi,
         functionName: "stake",
-        args: [[3]],
+        args: [[selectedNft.tokenid]],
       });
       console.log("NFT staked successfully!");
       // After staking, you can hide the stake button or perform any other action
