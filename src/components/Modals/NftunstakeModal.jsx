@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { StakingAbi } from "../../../contract/contract";
 import PropTypes from "prop-types";
-import { useAccount, useReadContract, useWriteContract, useWaitForTransaction } from "wagmi";
+import { useAccount, useReadContract, useWriteContract } from "wagmi";
 import { useParams } from "react-router-dom";
 import axios from "axios";
 import "./details.css";
@@ -16,13 +16,11 @@ function NftunstakeModal({ extractedData, extractedTrait, accountAddress }) {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [reward, setReward] = useState(0);
   const [tokenId, setTokenId] = useState('');
-  const [loadingStake, setLoadingStake] = useState(false);
+  const [loadingClaimReward, setLoadingClaimReward] = useState(false);
+  const [loadingUnstake, setLoadingUnstake] = useState(false);
+  const [unstakeStatus, setUnstakeStatus] = useState('');
   const { writeContract, data: unstakeTxData } = useWriteContract();
 
-  const { isLoading: isUnstaking, isSuccess: unstakeSuccess } = useWaitForTransaction({
-    hash: unstakeTxData?.hash,
-  });
-  const [unstakeStatus, setUnstakeStatus] = useState('');
   const { data: stakeInfo, isLoading, isError } = useReadContract({
     abi: StakingAbi,
     address: stakingAddress,
@@ -41,19 +39,19 @@ function NftunstakeModal({ extractedData, extractedTrait, accountAddress }) {
 
   useEffect(() => {
     const fetchNftData = async () => {
-      // ... (keep the existing useEffect logic)
+      // Fetch logic for NFT data
     };
 
     fetchNftData();
   }, [stakeInfo, contractAddress]);
 
   useEffect(() => {
-    if (unstakeSuccess) {
+    if (unstakeTxData) {
       setTimeout(() => {
         setUnstakeStatus('Successfully unstaked!');
       }, 10000); // Delay the success message by 10 seconds
     }
-  }, [unstakeSuccess]);
+  }, [unstakeTxData]);
 
   const handleNftClick = (tokenId, index) => {
     console.log("Clicked tokenId:", tokenId);
@@ -63,12 +61,17 @@ function NftunstakeModal({ extractedData, extractedTrait, accountAddress }) {
     setIsModalOpen(true);
   };
 
-  const handleClaimReward = () => {
+  const handleClaimReward = async () => {
     console.log("Claiming reward for NFT:", tokenId);
-    setLoadingStake(true);
+    setLoadingClaimReward(true);
 
-    setTimeout(() => {
-      setLoadingStake(false);  // End loading state after 10 seconds
+    setTimeout(async () => {
+      await writeContract({
+        address: stakingAddress,
+        abi: StakingAbi,
+        functionName: "claimRewards",
+      });
+      setLoadingClaimReward(false);
       setUnstakeStatus('Reward claimed successfully!');
     }, 10000);
   };
@@ -77,7 +80,7 @@ function NftunstakeModal({ extractedData, extractedTrait, accountAddress }) {
     try {
       console.log("Starting unstake process for token ID:", tokenId);
       setUnstakeStatus('Initiating unstake...');
-      setLoadingStake(true);
+      setLoadingUnstake(true);
 
       setTimeout(async () => {
         await writeContract({
@@ -86,14 +89,13 @@ function NftunstakeModal({ extractedData, extractedTrait, accountAddress }) {
           functionName: "withdraw",
           args: [[tokenId]],
         });
-        setLoadingStake(false);
+        setLoadingUnstake(false);
         setUnstakeStatus('Transaction submitted. Waiting for confirmation...');
       }, 10000);
-      
     } catch (error) {
       console.error("Error unstaking NFT:", error);
       setUnstakeStatus('Error initiating unstake. Please try again.');
-      setLoadingStake(false);
+      setLoadingUnstake(false);
     }
   };
 
@@ -141,17 +143,17 @@ function NftunstakeModal({ extractedData, extractedTrait, accountAddress }) {
             <span className="close-button" onClick={() => setIsModalOpen(false)}>&times;</span>
             <h1>NFT Token ID: {tokenId}</h1>
             <p>Your reward is: {reward} Moon</p>
-            <button className="stake-button" onClick={handleClaimReward} disabled={loadingStake}>
-              {loadingStake ? (
+            <button className="stake-button" onClick={handleClaimReward} disabled={loadingClaimReward}>
+              {loadingClaimReward ? (
                 <>
                   <div className="loader"></div> Claiming Reward...
                 </>
               ) : 'Claim Reward'}
             </button>
-            <button className="stake-button" onClick={handleUnstake} disabled={loadingStake || isUnstaking}>
-              {(loadingStake || isUnstaking) ? (
+            <button className="stake-button" onClick={handleUnstake} disabled={loadingUnstake}>
+              {loadingUnstake ? (
                 <>
-                  <div className="loader"></div> {loadingStake ? 'Processing...' : 'Unstaking...'}
+                  <div className="loader"></div> Processing...
                 </>
               ) : 'Unstake'}
             </button>
