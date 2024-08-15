@@ -19,7 +19,7 @@ import axios from "axios";
 import Modal from "../components/Modals/Modal.jsx";
 import NftCardModalDetails from "../components/Modals/NftCardModalDetails.jsx";
 import nftData from '../components/NewCards/nftData.json';
-
+import NftunstakeModal from "../components/Modals/NftunstakeModal.jsx";
 const NftCardDetails = ({ extractedData }) => {
   const account = useAccount();
   const chainId = useChainId();
@@ -209,12 +209,12 @@ const NftCardDetails = ({ extractedData }) => {
               )}
             </div>
 
-            <div className="row-4">
-              <p className="para-one">Total Staked</p>
-              {result ? (
-                <p className="para-two">{Number(stakednum.data)} NFT</p>
+            <div className="row-3">
+              <p className="para-one">My Reward {result.data}</p>
+              {mystaked && mystaked.data && mystaked.data.length > 0 ? (
+                <p className="para-two">{Number(mystaked.data[1])} Tokens</p>
               ) : (
-                <p className="para-two">Loading...</p> // Or any other appropriate placeholder
+                <p className="para-two">Loading...</p>
               )}
             </div>
 
@@ -242,6 +242,11 @@ const NftCardDetails = ({ extractedData }) => {
                         <NftCardModalDetails extractedData={extractedData} extractedTrait={nftItemData.traits} />
                       </div>
                     </Modal.Window>
+                    <Modal.Window name="unstake">
+                      <div>
+                        <NftunstakeModal extractedData={extractedData} extractedTrait={nftItemData.traits} />
+                      </div>
+                    </Modal.Window>
                     <Modal.Open opens="stake">
                       <Button
                         variant="contained"
@@ -259,6 +264,7 @@ const NftCardDetails = ({ extractedData }) => {
                         Stake
                       </Button>
                     </Modal.Open>
+                    <Modal.Open opens="unstake">
                     <Button
                       variant="contained"
                       color="secondary"
@@ -274,6 +280,7 @@ const NftCardDetails = ({ extractedData }) => {
                     >
                       Unstake
                     </Button>
+                    </Modal.Open>
                   </Box>
                 </Box>
               )}
