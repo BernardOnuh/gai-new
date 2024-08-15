@@ -17,24 +17,27 @@ import Footer from "./components/Navbar/Footer";
 import TraitHome from "./pages/Trait/TraitHome";
 import { useEffect, useState } from "react";
 import { fetchNfts } from "./api/fetchNFT";
+import { useAccount } from 'wagmi';
 
 function App() {
   const [extractedData, setExtractedData] = useState([]);
+  const { address } = useAccount(); // destructure address from useAccount
 
   useEffect(() => {
     const fetchData = async () => {
-      const result = await fetchNfts(
-        "0x5b92247bbF1D73Fb727C488dA9fD2e41DF11d4a3"
-      );
-      console.log(extractedData);
-      if (result) {
-        setExtractedData(result.extractedData);
-        console.log("Extracts on",result.extractedData);
+      if (address) { // only fetch data if address exists
+        const result = await fetchNfts(address); // pass the address directly
+        if (result) {
+          setExtractedData(result.extractedData);
+          console.log("Extracted Data:", result.extractedData);
+        }
       }
     };
 
     fetchData();
-  }, []);
+  }, [address]); // dependency on address
+
+  console.log("Owner Address:", address);
 
   return (
     <main>
