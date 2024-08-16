@@ -21,23 +21,21 @@ import { useAccount } from 'wagmi';
 
 function App() {
   const [extractedData, setExtractedData] = useState([]);
-  const { address } = useAccount(); // destructure address from useAccount
+  const { address } = useAccount();
+
+  const fetchData = async () => {
+    if (address) {
+      const result = await fetchNfts(address);
+      if (result) {
+        setExtractedData(result.extractedData);
+        console.log("Extracted Data:", result.extractedData);
+      }
+    }
+  };
 
   useEffect(() => {
-    const fetchData = async () => {
-      if (address) { // only fetch data if address exists
-        const result = await fetchNfts(address); // pass the address directly
-        if (result) {
-          setExtractedData(result.extractedData);
-          console.log("Extracted Data:", result.extractedData);
-        }
-      }
-    };
-
     fetchData();
-  }, [address]); // dependency on address
-
-  console.log("Owner Address:", address);
+  }, [address]);
 
   return (
     <main>
@@ -47,13 +45,9 @@ function App() {
         <Route
           exact
           path="/nfts/card/:name/:stakingAddress/:chain"
-          element={<NftCardDetails extractedData={extractedData} />}
+          element={<NftCardDetails extractedData={extractedData} refreshData={fetchData} />}
         />
-        <Route
-          exact
-          path="/nfts/card/:name/:id/connected/:id"
-          element={<NftCardConnected />}
-        />
+        <Route exact path="/nfts/card/:name/:id/connected/:id" element={<NftCardConnected />} />
         <Route exact path="/admin" element={<AdminHome />} />
         <Route exact path="/admin/fee" element={<AdminFee />} />
         <Route exact path="/admin/reward" element={<AdminReward />} />
@@ -64,9 +58,7 @@ function App() {
         <Route exact path="/raffle" element={<RafflePage />} />
         <Route exact path="/TraitDashboard" element={<TraitHome />} />
         <Route exact path="/TraitStaking" element={<RafflePage />} />
-
         <Route exact path="/raffle/:id" element={<RaffleItemPage />} />
-
         <Route exact path="*" element={<ErrorPage />} />
       </Routes>
       <Footer />

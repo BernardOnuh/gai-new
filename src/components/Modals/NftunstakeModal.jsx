@@ -81,7 +81,7 @@ function NftunstakeModal({ extractedData, extractedTrait, accountAddress }) {
       console.log("Starting unstake process for token ID:", tokenId);
       setUnstakeStatus('Initiating unstake...');
       setLoadingUnstake(true);
-
+  
       setTimeout(async () => {
         await writeContract({
           address: stakingAddress,
@@ -91,6 +91,12 @@ function NftunstakeModal({ extractedData, extractedTrait, accountAddress }) {
         });
         setLoadingUnstake(false);
         setUnstakeStatus('Transaction submitted. Waiting for confirmation...');
+  
+        // Close the modal after 10 seconds
+        setTimeout(() => {
+          setIsModalOpen(false);
+          setUnstakeStatus(''); // Optionally reset the status
+        }, 10000); // Close the modal after 10 seconds
       }, 10000);
     } catch (error) {
       console.error("Error unstaking NFT:", error);
@@ -98,6 +104,7 @@ function NftunstakeModal({ extractedData, extractedTrait, accountAddress }) {
       setLoadingUnstake(false);
     }
   };
+  
 
   if (isLoading) {
     return <div className="details">Loading...</div>;

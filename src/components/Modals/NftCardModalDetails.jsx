@@ -1,11 +1,29 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import "./details.css";
 import axios from "axios";
 import { useWriteContract } from "wagmi";
 import { NFTAbi, StakingAbi } from "../../../contract/contract";
 import PropTypes from "prop-types";
 import { useParams } from "react-router-dom";
-function NftCardModalDetails({ extractedData, extractedTrait }) {
+import { fetchNfts } from "../../api/fetchNFT";
+import { useAccount } from 'wagmi';
+
+function NftCardModalDetails({ extractedTrait }) {
+  const [extractedData, setExtractedData] = useState([]);
+  const { address } = useAccount();
+  const fetchData = async () => {
+    if (address) {
+      const result = await fetchNfts(address);
+      if (result) {
+        setExtractedData(result.extractedData);
+        console.log("Extracted Data:", result.extractedData);
+      }
+    }
+  };
+
+  useEffect(() => {
+    fetchData();
+  }, [address]);
   const targetContract = "0xd96e1816569a881459e8354a380415908c6a7f78";
   const alchemy_key = "aleYeT5BI1MFFXJw37SiYu_FdeYMaMqb";
 
@@ -25,6 +43,7 @@ function NftCardModalDetails({ extractedData, extractedTrait }) {
     setTraits(traitsData?.traits || []);
   };
 
+ 
   
   const closeModal = () => {
     setSelectedNft(null);
@@ -75,7 +94,7 @@ function NftCardModalDetails({ extractedData, extractedTrait }) {
       setTimeout(() => {
         setApproved(true);
         setLoadingApprove(false);
-      }, 10000);
+      }, 20000);
     } catch (error) {
       console.error("Error approving NFT:", error);
       setLoadingApprove(false);
@@ -85,21 +104,31 @@ function NftCardModalDetails({ extractedData, extractedTrait }) {
   const stakeNFT = async () => {
     try {
       console.log("Starting stake process");
-      setLoadingStake(true);
+      setLoadingStake(true); // This should trigger the loader display
+      console.log("Loading state set to true");
+  
       await writeContract({
         address: stakingAddress,
         abi: StakingAbi,
         functionName: "stake",
         args: [[selectedNft.tokenid]],
       });
+  
       console.log("NFT staked successfully!");
-      // After staking, you can hide the stake button or perform any other action
+  
+      // Keep the loader running for 10 seconds
+      setTimeout(() => {
+        fetchData();
+        setLoadingStake(false); // This should stop the loader
+        closeModal(); // Close all modals after the loader stops
+      }, 30000);
     } catch (error) {
       console.error("Error staking NFT:", error);
-    } finally {
-      setLoadingStake(false);
+      setLoadingStake(false); // Stop the loader in case of error
     }
   };
+  
+  
 
   return (
     <div className="details">
