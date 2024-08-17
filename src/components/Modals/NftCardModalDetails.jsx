@@ -159,7 +159,9 @@ function NftCardModalDetails({ extractedTrait }) {
         </div>
       ) : (
         <div className="no-nft-message">
+          <a href="https://opensea.io/collection/polyfactions">
           <p>You don't currently have this NFT. You can buy the NFT here.</p>
+          </a>
           {/* Add a link or button to the NFT marketplace if needed */}
         </div>
       )}
