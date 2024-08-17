@@ -14,7 +14,8 @@
         "description": "This is the Staking Pool for Poly Faction with wind traits",
         "image": "https://i.seadn.io/s/raw/files/a47348ebd368734cebc30888515a2583.png?auto=format&dpr=1&w=384",
         "traits": "Wind",
-        "address":"0x4....."
+        "stakingAddress":"0x51A1CC1cD0809fB64589096e4C12ef4B9EEE57ED",
+      "chain":137
       },
       {
         "id": 1,
@@ -22,7 +23,8 @@
         "description": "This is the Staking Pool for Poly Faction with Water traits",
         "image": "https://i.seadn.io/s/raw/files/8b02277e1f2bd8d46c65024969914d07.png?auto=format&dpr=1&w=384",
         "traits": "Water",
-        "address":"0x5....."
+        "stakingAddress":"0x8A76599125Bf4aB8feB637E141155E3Eb1A777a0",
+      "chain":137
       },
       {
         "id": 1,
@@ -30,7 +32,8 @@
         "description": "This is the Staking Pool for Poly Faction with Fire traits",
         "image": "https://i.seadn.io/s/raw/files/fee347636db9bb8e29b1db29fb2807cf.png?auto=format&dpr=1&w=384",
         "traits": "Fire",
-        "address":"0x6....."
+        "stakingAddress":"0xDa483907b0FA9915caeE617f460F9dABF86a9cf3",
+      "chain":137
       },
       {
         "id": 1,
@@ -38,7 +41,8 @@
         "description": "This is the Staking Pool for Poly Faction with Aether traits",
         "image": "https://i.seadn.io/s/raw/files/32af53fb9ddbfe25af36d278eb03ba51.png?auto=format&dpr=1&w=384",
         "traits": "Aether",
-        "address":"0x7....."
+        "stakingAddress":"0x8C92050bb5D23126B48e1a593720F6D5A7994f8B",
+      "chain":137
       }
 
   ]
