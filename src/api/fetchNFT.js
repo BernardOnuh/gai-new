@@ -46,7 +46,7 @@ export const fetchNfts = async (userAddress) => {
 
   try {
     const response = await fetch(
-      `https://api.opensea.io/api/v2/chain/matic/account/${userAddress}/nfts?polyfactions`,
+      `https://api.opensea.io/api/v2/chain/matic/account/${userAddress}/nfts?collection=polyfactions&limit=200`,
       options
     );
     const data = await response.json();
